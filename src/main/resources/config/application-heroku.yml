@@ -12,7 +12,7 @@
 
 eureka:
   instance:
-    hostname: pick-the-winners.herokuapp.com
+    hostname: pickwinr-webapp.herokuapp.com
     non-secure-port: 80
     prefer-ip-address: false
 

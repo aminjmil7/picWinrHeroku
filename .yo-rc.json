@@ -64,7 +64,7 @@
     ],
     "entities": ["Opcode", "Post", "Cycle"],
     "lastLiquibaseTimestamp": 1631631922000,
-    "herokuAppName": "pick-the-winners",
+    "herokuAppName": "pickwinr-webapp",
     "herokuDeployType": "git",
     "herokuJavaVersion": "11"
   }
