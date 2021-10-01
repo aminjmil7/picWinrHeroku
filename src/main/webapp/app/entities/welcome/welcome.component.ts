@@ -68,7 +68,10 @@ export class WelcomeComponent {
   }
   postSelected() {
     console.log(this.postList);
-    // this.selectedLink = this.postList.find(elem => elem.isSelected == true).link;
+    this.selectedLink = this.postList.find(elem => elem.isSelected == true).link;
     this.modalService.dismissAll();
+  }
+  choose(event:any,post:any){
+    post.isSelected = true;
   }
 }

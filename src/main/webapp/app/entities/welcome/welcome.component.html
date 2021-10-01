@@ -46,14 +46,14 @@
     <h2 class="font-weight-bold" style="color: #71cfee">Select one of the posts</h2>
   </div>
   <div style="overflow-y: auto; max-height: 30rem">
-    <div class="post" *ngFor="let post of postList">
+    <div class="post" *ngFor="let post of postList" (click)="inputRadio.click()">
       <div class="col-md-4">
         <img src="../../../content/images/placeholder.png" class="w-100 h-100" alt="Post Image" />
       </div>
       <div class="col-md-8 d-flex justify-content-between flex-column">
         <div class="d-flex justify-content-between">
           <h2 class="font-weight-bolder" style="color: blue">{{ post.name }}</h2>
-          <input [(ngModel)]="post.isSelected" type="radio" name="post" style="height: 25px; width: 25px" />
+          <input #inputRadio type="radio" name="post" (click)="choose($event,post)" style="height: 25px; width: 25px" />
         </div>
         <div style="display: flex; background: #a9a9a938; border-radius: 5px">
           <div class="post-info"><fa-icon class="mr-1" [icon]="fa_Heart"></fa-icon>{{ post.nbHearts }}</div>
