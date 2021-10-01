@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycles",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Cycle",
+        "createOrEditLabel": "Создать или отредактировать Cycle",
+        "notFound": "Cycles не найдено"
+      },
+      "created": "Новый Cycle создан с идентификатором {{ param }}",
+      "updated": "Cycle обновлен с идентификатором {{ param }}",
+      "deleted": "Cycle удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Cycle {{ id }}?"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}

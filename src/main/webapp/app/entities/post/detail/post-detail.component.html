@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="post">
+      <h2 data-cy="postDetailsHeading"><span jhiTranslate="pickwinrApp.post.detail.title">Post</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ post.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="pickwinrApp.post.link">Link</span></dt>
+        <dd>
+          <span>{{ post.link }}</span>
+        </dd>
+        <dt><span jhiTranslate="pickwinrApp.post.commentCount">Comment Count</span></dt>
+        <dd>
+          <span>{{ post.commentCount }}</span>
+        </dd>
+        <dt><span jhiTranslate="pickwinrApp.post.content">Content</span></dt>
+        <dd>
+          <span>{{ post.content }}</span>
+        </dd>
+        <dt><span jhiTranslate="pickwinrApp.post.cycle">Cycle</span></dt>
+        <dd>
+          <div *ngIf="post.cycle">
+            <a [routerLink]="['/jhipster/cycle', post.cycle?.id, 'view']">{{ post.cycle?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/jhipster/post', post.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

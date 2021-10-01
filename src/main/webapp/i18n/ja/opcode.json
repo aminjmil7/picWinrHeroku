@@ -1,0 +1,28 @@
+{
+  "pickwinrApp": {
+    "opcode": {
+      "home": {
+        "title": "Opcodes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Opcode を追加",
+        "createOrEditLabel": "Opcodeを追加または編集",
+        "notFound": "No Opcodes found"
+      },
+      "created": "A new Opcode is created with identifier {{ param }}",
+      "updated": "A Opcode is updated with identifier {{ param }}",
+      "deleted": "A Opcode is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Opcode {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "Opcode"
+      },
+      "id": "ID",
+      "count": "Count",
+      "ceationDated": "Ceation Dated",
+      "expirationDate": "Expiration Date",
+      "cycle": "Cycle",
+      "user": "User"
+    }
+  }
+}

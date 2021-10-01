@@ -1,0 +1,28 @@
+{
+  "pickwinrApp": {
+    "opcode": {
+      "home": {
+        "title": "Opcodes",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Opcode",
+        "createOrEditLabel": "Crear o editar Opcode",
+        "notFound": "Ningún Opcodes encontrado"
+      },
+      "created": "Un nuevo Opcode ha sido creado con el identificador {{ param }}",
+      "updated": "Un Opcode ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Opcode ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Opcode {{ id }}?"
+      },
+      "detail": {
+        "title": "Opcode"
+      },
+      "id": "ID",
+      "count": "Count",
+      "ceationDated": "Ceation Dated",
+      "expirationDate": "Expiration Date",
+      "cycle": "Cycle",
+      "user": "User"
+    }
+  }
+}

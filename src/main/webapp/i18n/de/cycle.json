@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycles",
+        "refreshListLabel": "Liste aktualisieren",
+        "createLabel": "Cycle erstellen",
+        "createOrEditLabel": "Cycle erstellen oder bearbeiten",
+        "notFound": "Keine Cycles gefunden"
+      },
+      "created": "Cycle erstellt mit ID {{ param }}",
+      "updated": "Cycle aktualisiert mit ID {{ param }}",
+      "deleted": "Cycle gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Cycle {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}

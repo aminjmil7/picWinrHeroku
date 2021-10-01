@@ -1,0 +1,90 @@
+<div>
+  <h2 id="page-heading" data-cy="CycleHeading">
+    <span jhiTranslate="pickwinrApp.cycle.home.title">Cycles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="pickwinrApp.cycle.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-cycle"
+        [routerLink]="['/jhipster/cycle/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="pickwinrApp.cycle.home.createLabel"> Create a new Cycle </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="cycles?.length === 0">
+    <span jhiTranslate="pickwinrApp.cycle.home.notFound">No cycles found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="cycles && cycles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="pickwinrApp.cycle.runDate">Run Date</span></th>
+          <th scope="col"><span jhiTranslate="pickwinrApp.cycle.email">Email</span></th>
+          <th scope="col"><span jhiTranslate="pickwinrApp.cycle.winners">Winners</span></th>
+          <th scope="col"><span jhiTranslate="pickwinrApp.cycle.alternatives">Alternatives</span></th>
+          <th scope="col"><span jhiTranslate="pickwinrApp.cycle.opcode">Opcode</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cycle of cycles; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/jhipster/cycle', cycle.id, 'view']">{{ cycle.id }}</a>
+          </td>
+          <td>{{ cycle.runDate | formatMediumDatetime }}</td>
+          <td>{{ cycle.email }}</td>
+          <td>{{ cycle.winners }}</td>
+          <td>{{ cycle.alternatives }}</td>
+          <td>
+            <div *ngIf="cycle.opcode">
+              <a [routerLink]="['/jhipster/opcode', cycle.opcode?.id, 'view']">{{ cycle.opcode?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/jhipster/cycle', cycle.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/jhipster/cycle', cycle.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(cycle)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

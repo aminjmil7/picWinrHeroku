@@ -1,0 +1,48 @@
+{
+  "name": "Cycle",
+  "fields": [
+    {
+      "fieldName": "runDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "winners",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "alternatives",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "post",
+      "otherEntityRelationshipName": "cycle",
+      "relationshipName": "post",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "opcode",
+      "otherEntityRelationshipName": "cycle",
+      "relationshipName": "opcode"
+    }
+  ],
+  "entityTableName": "cycle",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210914150522"
+}

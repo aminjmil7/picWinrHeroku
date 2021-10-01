@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-cycle-heading" data-cy="CycleCreateUpdateHeading" jhiTranslate="pickwinrApp.cycle.home.createOrEditLabel">
+        Create or edit a Cycle
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="pickwinrApp.cycle.runDate" for="field_runDate">Run Date</label>
+          <div class="d-flex">
+            <input
+              id="field_runDate"
+              data-cy="runDate"
+              type="datetime-local"
+              class="form-control"
+              name="runDate"
+              formControlName="runDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('runDate')!.invalid && (editForm.get('runDate')!.dirty || editForm.get('runDate')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('runDate')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('runDate')?.errors?.ZonedDateTimelocal"
+              jhiTranslate="entity.validation.ZonedDateTimelocal"
+            >
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="pickwinrApp.cycle.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+          <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="pickwinrApp.cycle.winners" for="field_winners">Winners</label>
+          <input type="text" class="form-control" name="winners" id="field_winners" data-cy="winners" formControlName="winners" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="pickwinrApp.cycle.alternatives" for="field_alternatives">Alternatives</label>
+          <input
+            type="text"
+            class="form-control"
+            name="alternatives"
+            id="field_alternatives"
+            data-cy="alternatives"
+            formControlName="alternatives"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="pickwinrApp.cycle.opcode" for="field_opcode">Opcode</label>
+          <select class="form-control" id="field_opcode" data-cy="opcode" name="opcode" formControlName="opcode">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="opcodeOption.id === editForm.get('opcode')!.value?.id ? editForm.get('opcode')!.value : opcodeOption"
+              *ngFor="let opcodeOption of opcodesSharedCollection; trackBy: trackOpcodeById"
+            >
+              {{ opcodeOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

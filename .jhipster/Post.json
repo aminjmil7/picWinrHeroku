@@ -1,0 +1,39 @@
+{
+  "name": "Post",
+  "fields": [
+    {
+      "fieldName": "link",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "commentCount",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "cycle",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "cycle",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "post",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210914150521"
+}

@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Cycle を追加",
+        "createOrEditLabel": "Cycleを追加または編集",
+        "notFound": "No Cycles found"
+      },
+      "created": "A new Cycle is created with identifier {{ param }}",
+      "updated": "A Cycle is updated with identifier {{ param }}",
+      "deleted": "A Cycle is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Cycle {{ id }}を削除してもよろしいですか？"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}

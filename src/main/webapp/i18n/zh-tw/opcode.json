@@ -1,0 +1,28 @@
+{
+  "pickwinrApp": {
+    "opcode": {
+      "home": {
+        "title": "Opcodes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "建立一筆新的 Opcode",
+        "createOrEditLabel": "建立或編輯 Opcode",
+        "notFound": "No Opcodes found"
+      },
+      "created": "新的 Opcode 建立成功，識別碼為 {{ param }}",
+      "updated": "識別碼為 {{ param }} 的 Opcode 更新成功",
+      "deleted": "識別碼為 {{ param }} 的 Opcode 刪除成功",
+      "delete": {
+        "question": "您確定要刪除 Opcode {{ id }} 嗎?"
+      },
+      "detail": {
+        "title": "Opcode"
+      },
+      "id": "ID",
+      "count": "Count",
+      "ceationDated": "Ceation Dated",
+      "expirationDate": "Expiration Date",
+      "cycle": "Cycle",
+      "user": "User"
+    }
+  }
+}

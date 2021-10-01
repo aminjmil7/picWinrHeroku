@@ -1,0 +1,26 @@
+<div id="ngwizard" class="ng-wizard-main ng-wizard-theme-dots">
+  <ul class="nav nav-tabs step-anchor d-flex justify-content-center m-5">
+    <li class="done" *ngFor="let step of steps; let i = index" [ngClass]="{ active: i == 3, done: i < 3 }">
+      <a class="nav-link" (click)="navigate(steps, i)"
+        >{{ step.title }}<br /><small>{{ step.description }}</small></a
+      >
+    </li>
+  </ul>
+</div>
+<table class="table table-striped" style="border: 0.5px solid #80808052">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">
+        <fa-icon [icon]="faTrophy"></fa-icon>
+        Winners
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let draw of drawResults">
+      <th scope="row"># {{ draw.Position }}</th>
+      <td>@{{ draw.winnerName }}</td>
+    </tr>
+  </tbody>
+</table>

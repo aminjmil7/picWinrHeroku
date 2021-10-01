@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycle",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Dodaj Cycle",
+        "createOrEditLabel": "Dodaj lub edytuj: Cycle",
+        "notFound": "No Cycles found"
+      },
+      "created": "Utworzono nowy obiekt typu Cycle z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Cycle z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Cycle z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Cycle {{ id }}?"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}

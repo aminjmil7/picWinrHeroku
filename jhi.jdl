@@ -1,0 +1,26 @@
+entity Opcode {
+count Integer required,
+ceationDated Instant required,
+expirationDate Instant
+
+}
+entity Post{
+link String required,
+commentCount Integer required,
+content String required //Json
+}
+entity Cycle{
+runDate Instant required,
+email String required,
+winners String, //Json
+alternatives String //Json
+}
+relationship ManyToOne{
+Opcode to User
+}
+relationship OneToMany{
+Opcode to Cycle
+}
+relationship OneToOne{
+Post to Cycle
+}

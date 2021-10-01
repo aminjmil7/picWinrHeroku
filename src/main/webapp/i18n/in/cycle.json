@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Buat Cycle baru",
+        "createOrEditLabel": "Buat atau edit Cycle",
+        "notFound": "No Cycles found"
+      },
+      "created": "Cycle dengan id {{ param }} telah dibuat",
+      "updated": "Cycle dengan id {{ param }} telah diperbaharui",
+      "deleted": "Cycle dengan id {{ param }} telah dihapus",
+      "delete": {
+        "question": "Apakah anda yakin ingin menghapus Cycle {{ id }}?"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}

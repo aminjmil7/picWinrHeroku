@@ -1,0 +1,27 @@
+{
+  "pickwinrApp": {
+    "post": {
+      "home": {
+        "title": "Posts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Δημιουργήστε ένα νέο Post",
+        "createOrEditLabel": "Δημιουργήστε η επεξεργαστείτε ένα Post",
+        "notFound": "No Posts found"
+      },
+      "created": "Ένα νέο Post έχει δημιουργηθεί με αναγνωριστικό {{ param }}",
+      "updated": "Ένα Post έχει ενημερωθεί με αναγνωριστικό {{ param }}",
+      "deleted": "Ένα Post έχει διαγραφτεί με αναγνωριστικό {{ param }}",
+      "delete": {
+        "question": "Είστε βέβαιοι όταν θέλετε να διαγράψετε το ακόλουθο Post {{ id }};"
+      },
+      "detail": {
+        "title": "Post"
+      },
+      "id": "ID",
+      "link": "Link",
+      "commentCount": "Comment Count",
+      "content": "Content",
+      "cycle": "Cycle"
+    }
+  }
+}

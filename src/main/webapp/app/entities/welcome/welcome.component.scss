@@ -1,0 +1,22 @@
+.logo {
+  max-width: 200px;
+  max-height: 200px;
+}
+.social-icon {
+  max-width: 40px;
+  max-height: 40px;
+}
+.post {
+  display: flex;
+  margin: 1rem;
+  border: 1px solid grey;
+  padding: 1rem;
+  min-height: 10rem;
+  cursor: pointer;
+}
+.post-info {
+  display: flex;
+  flex: 25%;
+  justify-content: center;
+  align-items: center;
+}

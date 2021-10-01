@@ -1,0 +1,27 @@
+{
+  "pickwinrApp": {
+    "post": {
+      "home": {
+        "title": "Posts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Buat Post baru",
+        "createOrEditLabel": "Buat atau edit Post",
+        "notFound": "No Posts found"
+      },
+      "created": "Post dengan id {{ param }} telah dibuat",
+      "updated": "Post dengan id {{ param }} telah diperbaharui",
+      "deleted": "Post dengan id {{ param }} telah dihapus",
+      "delete": {
+        "question": "Apakah anda yakin ingin menghapus Post {{ id }}?"
+      },
+      "detail": {
+        "title": "Post"
+      },
+      "id": "ID",
+      "link": "Link",
+      "commentCount": "Comment Count",
+      "content": "Content",
+      "cycle": "Cycle"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "pickwinrApp": {
+    "opcode": {
+      "home": {
+        "title": "Opcodes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Opcode बनाएँ",
+        "createOrEditLabel": "Opcode बनाएँ या संपादित करें",
+        "notFound": "No Opcodes found"
+      },
+      "created": "एक नया Opcode [identifier: {{ param }}] तैयार है",
+      "updated": "एक Opcode [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Opcode [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Opcode [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Opcode"
+      },
+      "id": "ID",
+      "count": "Count",
+      "ceationDated": "Ceation Dated",
+      "expirationDate": "Expiration Date",
+      "cycle": "Cycle",
+      "user": "User"
+    }
+  }
+}

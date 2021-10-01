@@ -1,0 +1,28 @@
+{
+  "pickwinrApp": {
+    "opcode": {
+      "home": {
+        "title": "Opcode",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Dodaj Opcode",
+        "createOrEditLabel": "Dodaj lub edytuj: Opcode",
+        "notFound": "No Opcodes found"
+      },
+      "created": "Utworzono nowy obiekt typu Opcode z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Opcode z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Opcode z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Opcode {{ id }}?"
+      },
+      "detail": {
+        "title": "Opcode"
+      },
+      "id": "ID",
+      "count": "Count",
+      "ceationDated": "Ceation Dated",
+      "expirationDate": "Expiration Date",
+      "cycle": "Cycle",
+      "user": "User"
+    }
+  }
+}

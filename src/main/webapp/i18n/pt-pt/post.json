@@ -1,0 +1,27 @@
+{
+  "pickwinrApp": {
+    "post": {
+      "home": {
+        "title": "Posts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Criar novo(a) Post",
+        "createOrEditLabel": "Criar ou editar Post",
+        "notFound": "Nenhum Posts encontrado"
+      },
+      "created": "Um novo Post foi criado com o identificador {{ param }}",
+      "updated": "Post com identificador {{ param }} foi actualizado",
+      "deleted": "Post com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Post {{ id }}?"
+      },
+      "detail": {
+        "title": "Post"
+      },
+      "id": "ID",
+      "link": "Link",
+      "commentCount": "Comment Count",
+      "content": "Content",
+      "cycle": "Cycle"
+    }
+  }
+}

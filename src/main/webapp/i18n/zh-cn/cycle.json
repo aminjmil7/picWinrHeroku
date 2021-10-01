@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "创建新 Cycle",
+        "createOrEditLabel": "创建或编辑 Cycle",
+        "notFound": "No Cycles found"
+      },
+      "created": "Cycle {{ param }} 创建成功",
+      "updated": "Cycle {{ param }} 更新成功",
+      "deleted": "Cycle {{ param }} 删除成功",
+      "delete": {
+        "question": "你确定要删除 Cycle {{ id }} 吗？"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}

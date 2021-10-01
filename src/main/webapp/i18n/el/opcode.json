@@ -1,0 +1,28 @@
+{
+  "pickwinrApp": {
+    "opcode": {
+      "home": {
+        "title": "Opcodes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Δημιουργήστε ένα νέο Opcode",
+        "createOrEditLabel": "Δημιουργήστε η επεξεργαστείτε ένα Opcode",
+        "notFound": "No Opcodes found"
+      },
+      "created": "Ένα νέο Opcode έχει δημιουργηθεί με αναγνωριστικό {{ param }}",
+      "updated": "Ένα Opcode έχει ενημερωθεί με αναγνωριστικό {{ param }}",
+      "deleted": "Ένα Opcode έχει διαγραφτεί με αναγνωριστικό {{ param }}",
+      "delete": {
+        "question": "Είστε βέβαιοι όταν θέλετε να διαγράψετε το ακόλουθο Opcode {{ id }};"
+      },
+      "detail": {
+        "title": "Opcode"
+      },
+      "id": "ID",
+      "count": "Count",
+      "ceationDated": "Ceation Dated",
+      "expirationDate": "Expiration Date",
+      "cycle": "Cycle",
+      "user": "User"
+    }
+  }
+}

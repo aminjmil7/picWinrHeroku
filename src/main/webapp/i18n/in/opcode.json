@@ -1,0 +1,28 @@
+{
+  "pickwinrApp": {
+    "opcode": {
+      "home": {
+        "title": "Opcodes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Buat Opcode baru",
+        "createOrEditLabel": "Buat atau edit Opcode",
+        "notFound": "No Opcodes found"
+      },
+      "created": "Opcode dengan id {{ param }} telah dibuat",
+      "updated": "Opcode dengan id {{ param }} telah diperbaharui",
+      "deleted": "Opcode dengan id {{ param }} telah dihapus",
+      "delete": {
+        "question": "Apakah anda yakin ingin menghapus Opcode {{ id }}?"
+      },
+      "detail": {
+        "title": "Opcode"
+      },
+      "id": "ID",
+      "count": "Count",
+      "ceationDated": "Ceation Dated",
+      "expirationDate": "Expiration Date",
+      "cycle": "Cycle",
+      "user": "User"
+    }
+  }
+}

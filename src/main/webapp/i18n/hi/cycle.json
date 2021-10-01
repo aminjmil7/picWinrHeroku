@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Cycle बनाएँ",
+        "createOrEditLabel": "Cycle बनाएँ या संपादित करें",
+        "notFound": "No Cycles found"
+      },
+      "created": "एक नया Cycle [identifier: {{ param }}] तैयार है",
+      "updated": "एक Cycle [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Cycle [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Cycle [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "pickwinrApp": {
+    "cycle": {
+      "home": {
+        "title": "Cycles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Δημιουργήστε ένα νέο Cycle",
+        "createOrEditLabel": "Δημιουργήστε η επεξεργαστείτε ένα Cycle",
+        "notFound": "No Cycles found"
+      },
+      "created": "Ένα νέο Cycle έχει δημιουργηθεί με αναγνωριστικό {{ param }}",
+      "updated": "Ένα Cycle έχει ενημερωθεί με αναγνωριστικό {{ param }}",
+      "deleted": "Ένα Cycle έχει διαγραφτεί με αναγνωριστικό {{ param }}",
+      "delete": {
+        "question": "Είστε βέβαιοι όταν θέλετε να διαγράψετε το ακόλουθο Cycle {{ id }};"
+      },
+      "detail": {
+        "title": "Cycle"
+      },
+      "id": "ID",
+      "runDate": "Run Date",
+      "email": "Email",
+      "winners": "Winners",
+      "alternatives": "Alternatives",
+      "post": "Post",
+      "opcode": "Opcode"
+    }
+  }
+}
