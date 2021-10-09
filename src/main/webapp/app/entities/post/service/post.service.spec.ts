@@ -79,7 +79,6 @@ describe('Service Tests', () => {
       it('should partial update a Post', () => {
         const patchObject = Object.assign(
           {
-            commentCount: 1,
             content: 'BBBBBB',
           },
           new Post()
@@ -154,7 +153,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Post to an array', () => {
-          const postArray: IPost[] = [{ id: 123 }, { id: 456 }, { id: 39036 }];
+          const postArray: IPost[] = [{ id: 123 }, { id: 456 }, { id: 49005 }];
           const postCollection: IPost[] = [{ id: 123 }];
           expectedResult = service.addPostToCollectionIfMissing(postCollection, ...postArray);
           expect(expectedResult).toHaveLength(3);
@@ -174,6 +173,12 @@ describe('Service Tests', () => {
           expectedResult = service.addPostToCollectionIfMissing([], null, post, undefined);
           expect(expectedResult).toHaveLength(1);
           expect(expectedResult).toContain(post);
+        });
+
+        it('should return initial array if no Post is added', () => {
+          const postCollection: IPost[] = [{ id: 123 }];
+          expectedResult = service.addPostToCollectionIfMissing(postCollection, undefined, null);
+          expect(expectedResult).toEqual(postCollection);
         });
       });
     });

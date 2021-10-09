@@ -10,7 +10,7 @@ import { OpcodeService } from '../service/opcode.service';
 export class OpcodeDeleteDialogComponent {
   opcode?: IOpcode;
 
-  constructor(protected opcodeService: OpcodeService, public activeModal: NgbActiveModal) {}
+  constructor(protected opcodeService: OpcodeService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

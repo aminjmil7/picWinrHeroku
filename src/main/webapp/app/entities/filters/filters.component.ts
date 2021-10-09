@@ -42,8 +42,6 @@ export class filtersComponent implements OnInit {
     });
   }
   submitFilters() {
-    console.log(this.filters);
-
     this.router.navigate(['/validation']);
   }
   navigate(steps: { title: string; description: string; path: string }[], i: number) {

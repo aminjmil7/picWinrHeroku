@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DrawService } from './draw.service';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { CycleService } from '../cycle/service/cycle.service';
 @Component({
   selector: 'jhi-draw',
   templateUrl: './draw.component.html',
   styleUrls: ['./draw.component.scss'],
 })
 export class DrawComponent implements OnInit {
-  drawResults: { winnerName: string; Position: number }[] = [];
+  drawResults: string[] = [];
   steps: { title: string; description: string; path: string }[] = [
     {
       title: 'Step 1',
@@ -34,12 +35,18 @@ export class DrawComponent implements OnInit {
   ];
   faTrophy = faTrophy;
 
-  constructor(protected drawService: DrawService, protected ngbmOdel: NgbModal, protected router: Router) {}
+  constructor(
+    protected drawService: DrawService,
+    protected cycleService: CycleService,
+    protected ngbmOdel: NgbModal,
+    protected router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.drawService.getDrawResults().subscribe(data => {
-      data.map(element => this.drawResults.push({ winnerName: element, Position: this.drawResults.length + 1 }));
-    });
+    if (this.cycleService.currentCycle.winners) {
+      this.drawResults = this.cycleService.currentCycle.winners?.split('@');
+      this.drawResults.shift();
+    }
   }
 
   navigate(steps: { title: string; description: string; path: string }[], i: number) {

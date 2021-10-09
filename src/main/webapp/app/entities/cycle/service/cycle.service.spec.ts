@@ -99,7 +99,13 @@ describe('Service Tests', () => {
       });
 
       it('should partial update a Cycle', () => {
-        const patchObject = Object.assign({}, new Cycle());
+        const patchObject = Object.assign(
+          {
+            email: 'BBBBBB',
+            alternatives: 'BBBBBB',
+          },
+          new Cycle()
+        );
 
         const returnedFromService = Object.assign(patchObject, elemDefault);
 
@@ -181,7 +187,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Cycle to an array', () => {
-          const cycleArray: ICycle[] = [{ id: 123 }, { id: 456 }, { id: 43492 }];
+          const cycleArray: ICycle[] = [{ id: 123 }, { id: 456 }, { id: 19856 }];
           const cycleCollection: ICycle[] = [{ id: 123 }];
           expectedResult = service.addCycleToCollectionIfMissing(cycleCollection, ...cycleArray);
           expect(expectedResult).toHaveLength(3);
@@ -201,6 +207,12 @@ describe('Service Tests', () => {
           expectedResult = service.addCycleToCollectionIfMissing([], null, cycle, undefined);
           expect(expectedResult).toHaveLength(1);
           expect(expectedResult).toContain(cycle);
+        });
+
+        it('should return initial array if no Cycle is added', () => {
+          const cycleCollection: ICycle[] = [{ id: 123 }];
+          expectedResult = service.addCycleToCollectionIfMissing(cycleCollection, undefined, null);
+          expect(expectedResult).toEqual(cycleCollection);
         });
       });
     });

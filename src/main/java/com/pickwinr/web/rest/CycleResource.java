@@ -2,13 +2,15 @@ package com.pickwinr.web.rest;
 
 import com.pickwinr.domain.Cycle;
 import com.pickwinr.repository.CycleRepository;
+import com.pickwinr.service.CycleQueryService;
+import com.pickwinr.service.CycleService;
+import com.pickwinr.service.criteria.CycleCriteria;
 import com.pickwinr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -26,7 +27,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class CycleResource {
 
     private final Logger log = LoggerFactory.getLogger(CycleResource.class);
@@ -36,10 +36,16 @@ public class CycleResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final CycleService cycleService;
+
     private final CycleRepository cycleRepository;
 
-    public CycleResource(CycleRepository cycleRepository) {
+    private final CycleQueryService cycleQueryService;
+
+    public CycleResource(CycleService cycleService, CycleRepository cycleRepository, CycleQueryService cycleQueryService) {
+        this.cycleService = cycleService;
         this.cycleRepository = cycleRepository;
+        this.cycleQueryService = cycleQueryService;
     }
 
     /**
@@ -55,7 +61,7 @@ public class CycleResource {
         if (cycle.getId() != null) {
             throw new BadRequestAlertException("A new cycle cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Cycle result = cycleRepository.save(cycle);
+        Cycle result = cycleService.save(cycle);
         return ResponseEntity
             .created(new URI("/api/cycles/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -87,7 +93,7 @@ public class CycleResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Cycle result = cycleRepository.save(cycle);
+        Cycle result = cycleService.save(cycle);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, cycle.getId().toString()))
@@ -122,27 +128,7 @@ public class CycleResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Cycle> result = cycleRepository
-            .findById(cycle.getId())
-            .map(
-                existingCycle -> {
-                    if (cycle.getRunDate() != null) {
-                        existingCycle.setRunDate(cycle.getRunDate());
-                    }
-                    if (cycle.getEmail() != null) {
-                        existingCycle.setEmail(cycle.getEmail());
-                    }
-                    if (cycle.getWinners() != null) {
-                        existingCycle.setWinners(cycle.getWinners());
-                    }
-                    if (cycle.getAlternatives() != null) {
-                        existingCycle.setAlternatives(cycle.getAlternatives());
-                    }
-
-                    return existingCycle;
-                }
-            )
-            .map(cycleRepository::save);
+        Optional<Cycle> result = cycleService.partialUpdate(cycle);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -153,20 +139,26 @@ public class CycleResource {
     /**
      * {@code GET  /cycles} : get all the cycles.
      *
-     * @param filter the filter of the request.
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of cycles in body.
      */
     @GetMapping("/cycles")
-    public List<Cycle> getAllCycles(@RequestParam(required = false) String filter) {
-        if ("post-is-null".equals(filter)) {
-            log.debug("REST request to get all Cycles where post is null");
-            return StreamSupport
-                .stream(cycleRepository.findAll().spliterator(), false)
-                .filter(cycle -> cycle.getPost() == null)
-                .collect(Collectors.toList());
-        }
-        log.debug("REST request to get all Cycles");
-        return cycleRepository.findAll();
+    public ResponseEntity<List<Cycle>> getAllCycles(CycleCriteria criteria) {
+        log.debug("REST request to get Cycles by criteria: {}", criteria);
+        List<Cycle> entityList = cycleQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /cycles/count} : count all the cycles.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/cycles/count")
+    public ResponseEntity<Long> countCycles(CycleCriteria criteria) {
+        log.debug("REST request to count Cycles by criteria: {}", criteria);
+        return ResponseEntity.ok().body(cycleQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -178,7 +170,7 @@ public class CycleResource {
     @GetMapping("/cycles/{id}")
     public ResponseEntity<Cycle> getCycle(@PathVariable Long id) {
         log.debug("REST request to get Cycle : {}", id);
-        Optional<Cycle> cycle = cycleRepository.findById(id);
+        Optional<Cycle> cycle = cycleService.findOne(id);
         return ResponseUtil.wrapOrNotFound(cycle);
     }
 
@@ -191,7 +183,7 @@ public class CycleResource {
     @DeleteMapping("/cycles/{id}")
     public ResponseEntity<Void> deleteCycle(@PathVariable Long id) {
         log.debug("REST request to delete Cycle : {}", id);
-        cycleRepository.deleteById(id);
+        cycleService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))

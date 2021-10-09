@@ -1,11 +1,14 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { IPost } from '../post/post.model';
+import { IPost, Post } from '../post/post.model';
 import { PostService } from '../post/service/post.service';
 import { faHeart, faComments, faClock } from '@fortawesome/free-regular-svg-icons';
 import { Router } from '@angular/router';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { CycleService } from '../cycle/service/cycle.service';
+import { Dayjs } from 'dayjs';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'jhi-welcome',
@@ -19,59 +22,51 @@ export class WelcomeComponent {
   fa_Comments = faComments;
   fa_Clock = faClock;
   fa_Link = faLink;
-  selectedLink = '';
+  selectedPost: Post = {};
 
-  constructor(private modalService: NgbModal, protected postService: PostService, protected router: Router) {}
+  constructor(
+    private modalService: NgbModal,
+    protected postService: PostService,
+    protected router: Router,
+    protected cycleService: CycleService
+  ) {}
 
   submitPostLink(): any {
-    this.router.navigate(['/filters']);
+    this.cycleService.create({ post: this.selectedPost, runDate: dayjs(), email: '' }).subscribe(res => {
+      if (res.body) {
+        this.cycleService.currentCycle = res.body;
+        this.router.navigate(['/filters']);
+      }
+    });
   }
 
   getFacebookPosts(postListContent: any) {
-    this.postList.push(
-      ...[
-        {
-          name: 'The Filthy Animals',
-          nbHearts: Math.floor(Math.random() * 1000),
-          nbComments: Math.floor(Math.random() * 1000),
-          date: new Date().setHours(5),
-          link: 'facebook.com/TunisoulTN/photos/a.1002605789840018/3149235591843683',
-          isSelected: false,
-        },
-        {
-          name: 'leading edge',
-          nbHearts: Math.floor(Math.random() * 1000),
-          nbComments: Math.floor(Math.random() * 1000),
-          date: new Date().setMonth(3),
-          link: 'facebook.com/TunisoulTN/photos/a.1002605789840018/3053356198098290',
-          isSelected: false,
-        },
-        {
-          name: 'magenta mission-critical',
-          nbHearts: Math.floor(Math.random() * 1000),
-          nbComments: Math.floor(Math.random() * 1000),
-          date: new Date().setMonth(5),
-          link: 'facebook.com/photo/?fbid=3779073372332631&set=a.1718656361707686',
-          isSelected: false,
-        },
-        {
-          name: 'Wedding picture',
-          nbHearts: Math.floor(Math.random() * 1000),
-          nbComments: Math.floor(Math.random() * 1000),
-          date: new Date().setMonth(9),
-          link: 'facebook.com/1718650065041649/photos/a.1718656361707686/3779151628991472/',
-          isSelected: false,
-        },
-      ]
-    );
+    this.postService.query().subscribe(res => {
+      res.body?.map(element => {
+        if (element.content) {
+          const obj = JSON.parse(element.content);
+          this.postList.push({
+            id: element.id,
+            title: obj.title,
+            nbLikes: obj.nbLikes,
+            commentCount: obj?.comments?.length,
+            date: new Date(obj.date),
+            link: element.link,
+            content: element.content,
+            isSelected: false,
+          });
+        }
+      });
+    });
+
     this.modalService.open(postListContent, { size: 'lg', centered: true });
   }
   postSelected() {
-    console.log(this.postList);
-    this.selectedLink = this.postList.find(elem => elem.isSelected == true).link;
+    this.selectedPost = this.postList.find(elem => elem.isSelected == true);
+    console.log(this.selectedPost);
     this.modalService.dismissAll();
   }
-  choose(event:any,post:any){
+  choose(event: any, post: any) {
     post.isSelected = true;
   }
 }

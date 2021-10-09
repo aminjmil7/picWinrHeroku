@@ -18,6 +18,7 @@
         "title": "Opcode"
       },
       "id": "ID",
+      "opirationCode": "Opiration Code",
       "count": "Count",
       "ceationDated": "Ceation Dated",
       "expirationDate": "Expiration Date",

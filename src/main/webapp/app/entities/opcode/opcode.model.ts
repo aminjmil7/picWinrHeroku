@@ -4,6 +4,7 @@ import { IUser } from 'app/entities/user/user.model';
 
 export interface IOpcode {
   id?: number;
+  opirationCode?: string;
   count?: number;
   ceationDated?: dayjs.Dayjs;
   expirationDate?: dayjs.Dayjs | null;
@@ -14,6 +15,7 @@ export interface IOpcode {
 export class Opcode implements IOpcode {
   constructor(
     public id?: number,
+    public opirationCode?: string,
     public count?: number,
     public ceationDated?: dayjs.Dayjs,
     public expirationDate?: dayjs.Dayjs | null,

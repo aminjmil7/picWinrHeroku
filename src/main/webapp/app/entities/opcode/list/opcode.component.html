@@ -33,6 +33,7 @@
       <thead>
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="pickwinrApp.opcode.opirationCode">Opiration Code</span></th>
           <th scope="col"><span jhiTranslate="pickwinrApp.opcode.count">Count</span></th>
           <th scope="col"><span jhiTranslate="pickwinrApp.opcode.ceationDated">Ceation Dated</span></th>
           <th scope="col"><span jhiTranslate="pickwinrApp.opcode.expirationDate">Expiration Date</span></th>
@@ -45,6 +46,7 @@
           <td>
             <a [routerLink]="['/jhipster/opcode', opcode.id, 'view']">{{ opcode.id }}</a>
           </td>
+          <td>{{ opcode.opirationCode }}</td>
           <td>{{ opcode.count }}</td>
           <td>{{ opcode.ceationDated | formatMediumDatetime }}</td>
           <td>{{ opcode.expirationDate | formatMediumDatetime }}</td>

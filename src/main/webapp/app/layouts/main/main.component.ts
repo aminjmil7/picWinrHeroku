@@ -31,8 +31,6 @@ export class MainComponent implements OnInit {
     this.accountService.identity().subscribe();
 
     this.router.events.subscribe(event => {
-      console.clear();
-      console.log(this.router.routerState.snapshot.url.indexOf('jhipster'));
       this.adminPanel = this.router.routerState.snapshot.url.indexOf('jhipster') > -1;
       if (event instanceof NavigationEnd) {
         this.updateTitle();

@@ -26,6 +26,7 @@ describe('Service Tests', () => {
 
       elemDefault = {
         id: 0,
+        opirationCode: 'AAAAAAA',
         count: 0,
         ceationDated: currentDate,
         expirationDate: currentDate,
@@ -78,6 +79,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
+            opirationCode: 'BBBBBB',
             count: 1,
             ceationDated: currentDate.format(DATE_TIME_FORMAT),
             expirationDate: currentDate.format(DATE_TIME_FORMAT),
@@ -103,8 +105,8 @@ describe('Service Tests', () => {
       it('should partial update a Opcode', () => {
         const patchObject = Object.assign(
           {
-            ceationDated: currentDate.format(DATE_TIME_FORMAT),
-            expirationDate: currentDate.format(DATE_TIME_FORMAT),
+            opirationCode: 'BBBBBB',
+            count: 1,
           },
           new Opcode()
         );
@@ -130,6 +132,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
+            opirationCode: 'BBBBBB',
             count: 1,
             ceationDated: currentDate.format(DATE_TIME_FORMAT),
             expirationDate: currentDate.format(DATE_TIME_FORMAT),
@@ -190,7 +193,7 @@ describe('Service Tests', () => {
         });
 
         it('should add only unique Opcode to an array', () => {
-          const opcodeArray: IOpcode[] = [{ id: 123 }, { id: 456 }, { id: 99884 }];
+          const opcodeArray: IOpcode[] = [{ id: 123 }, { id: 456 }, { id: 52406 }];
           const opcodeCollection: IOpcode[] = [{ id: 123 }];
           expectedResult = service.addOpcodeToCollectionIfMissing(opcodeCollection, ...opcodeArray);
           expect(expectedResult).toHaveLength(3);
@@ -210,6 +213,12 @@ describe('Service Tests', () => {
           expectedResult = service.addOpcodeToCollectionIfMissing([], null, opcode, undefined);
           expect(expectedResult).toHaveLength(1);
           expect(expectedResult).toContain(opcode);
+        });
+
+        it('should return initial array if no Opcode is added', () => {
+          const opcodeCollection: IOpcode[] = [{ id: 123 }];
+          expectedResult = service.addOpcodeToCollectionIfMissing(opcodeCollection, undefined, null);
+          expect(expectedResult).toEqual(opcodeCollection);
         });
       });
     });

@@ -14,9 +14,10 @@ export type EntityArrayResponseType = HttpResponse<ICycle[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CycleService {
-  public resourceUrl = this.applicationConfigService.getEndpointFor('api/cycles');
+  protected resourceUrl = this.applicationConfigService.getEndpointFor('api/cycles');
+  currentCycle: ICycle = {};
 
-  constructor(protected http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
+  constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
   create(cycle: ICycle): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(cycle);

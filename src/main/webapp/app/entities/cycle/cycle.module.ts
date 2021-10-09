@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { CycleComponent } from './list/cycle.component';
 import { CycleDetailComponent } from './detail/cycle-detail.component';

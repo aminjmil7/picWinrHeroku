@@ -28,11 +28,11 @@
         placeholder="Post Link"
         aria-label="Post Link"
         aria-describedby="basic-addon1"
-        [(ngModel)]="selectedLink"
+        [(ngModel)]="selectedPost.link"
       />
     </div>
     <div class="d-flex justify-content-center">
-      <button class="btn" style="background: #d3d3d366" (click)="submitPostLink()">Pik YOUR Winr</button>
+      <button class="btn" style="background: #d3d3d366" [disabled]="!selectedPost.link" (click)="submitPostLink()">Pik YOUR Winr</button>
     </div>
   </div>
 </div>
@@ -52,12 +52,12 @@
       </div>
       <div class="col-md-8 d-flex justify-content-between flex-column">
         <div class="d-flex justify-content-between">
-          <h2 class="font-weight-bolder" style="color: blue">{{ post.name }}</h2>
-          <input #inputRadio type="radio" name="post" (click)="choose($event,post)" style="height: 25px; width: 25px" />
+          <h2 class="font-weight-bolder" style="color: blue">{{ post.title }}</h2>
+          <input #inputRadio type="radio" name="post" (click)="choose($event, post)" style="height: 25px; width: 25px" />
         </div>
         <div style="display: flex; background: #a9a9a938; border-radius: 5px">
-          <div class="post-info"><fa-icon class="mr-1" [icon]="fa_Heart"></fa-icon>{{ post.nbHearts }}</div>
-          <div class="post-info"><fa-icon class="mr-1" [icon]="fa_Comments"></fa-icon>{{ post.nbComments }}</div>
+          <div class="post-info"><fa-icon class="mr-1" [icon]="fa_Heart"></fa-icon>{{ post.nbLikes }}</div>
+          <div class="post-info"><fa-icon class="mr-1" [icon]="fa_Comments"></fa-icon>{{ post.commentCount }}</div>
           <div class="post-info"><fa-icon class="mr-1" [icon]="fa_Clock"></fa-icon>{{ post.date | dateAgo }}</div>
           <div class="post-info">
             <fa-icon [icon]="fa_Link"></fa-icon>

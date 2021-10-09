@@ -10,7 +10,7 @@ import { CycleService } from '../service/cycle.service';
 export class CycleDeleteDialogComponent {
   cycle?: ICycle;
 
-  constructor(protected cycleService: CycleService, public activeModal: NgbActiveModal) {}
+  constructor(protected cycleService: CycleService, protected activeModal: NgbActiveModal) {}
 
   cancel(): void {
     this.activeModal.dismiss();

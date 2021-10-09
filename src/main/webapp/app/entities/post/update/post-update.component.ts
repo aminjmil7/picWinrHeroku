@@ -93,7 +93,7 @@ export class PostUpdateComponent implements OnInit {
 
   protected loadRelationshipsOptions(): void {
     this.cycleService
-      .query({ filter: 'post-is-null' })
+      .query({ 'postId.specified': 'false' })
       .pipe(map((res: HttpResponse<ICycle[]>) => res.body ?? []))
       .pipe(map((cycles: ICycle[]) => this.cycleService.addCycleToCollectionIfMissing(cycles, this.editForm.get('cycle')!.value)))
       .subscribe((cycles: ICycle[]) => (this.cyclesCollection = cycles));

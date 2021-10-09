@@ -25,6 +25,10 @@ public class Opcode implements Serializable {
     private Long id;
 
     @NotNull
+    @Column(name = "opiration_code", nullable = false)
+    private String opirationCode;
+
+    @NotNull
     @Column(name = "count", nullable = false)
     private Integer count;
 
@@ -55,6 +59,19 @@ public class Opcode implements Serializable {
     public Opcode id(Long id) {
         this.id = id;
         return this;
+    }
+
+    public String getOpirationCode() {
+        return this.opirationCode;
+    }
+
+    public Opcode opirationCode(String opirationCode) {
+        this.opirationCode = opirationCode;
+        return this;
+    }
+
+    public void setOpirationCode(String opirationCode) {
+        this.opirationCode = opirationCode;
     }
 
     public Integer getCount() {
@@ -164,6 +181,7 @@ public class Opcode implements Serializable {
     public String toString() {
         return "Opcode{" +
             "id=" + getId() +
+            ", opirationCode='" + getOpirationCode() + "'" +
             ", count=" + getCount() +
             ", ceationDated='" + getCeationDated() + "'" +
             ", expirationDate='" + getExpirationDate() + "'" +

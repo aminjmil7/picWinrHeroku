@@ -24,6 +24,7 @@ export class OpcodeUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
+    opirationCode: [null, [Validators.required]],
     count: [null, [Validators.required]],
     ceationDated: [null, [Validators.required]],
     expirationDate: [],
@@ -91,6 +92,7 @@ export class OpcodeUpdateComponent implements OnInit {
   protected updateForm(opcode: IOpcode): void {
     this.editForm.patchValue({
       id: opcode.id,
+      opirationCode: opcode.opirationCode,
       count: opcode.count,
       ceationDated: opcode.ceationDated ? opcode.ceationDated.format(DATE_TIME_FORMAT) : null,
       expirationDate: opcode.expirationDate ? opcode.expirationDate.format(DATE_TIME_FORMAT) : null,
@@ -112,6 +114,7 @@ export class OpcodeUpdateComponent implements OnInit {
     return {
       ...new Opcode(),
       id: this.editForm.get(['id'])!.value,
+      opirationCode: this.editForm.get(['opirationCode'])!.value,
       count: this.editForm.get(['count'])!.value,
       ceationDated: this.editForm.get(['ceationDated'])!.value
         ? dayjs(this.editForm.get(['ceationDated'])!.value, DATE_TIME_FORMAT)

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-
 import { SharedModule } from 'app/shared/shared.module';
 import { OpcodeComponent } from './list/opcode.component';
 import { OpcodeDetailComponent } from './detail/opcode-detail.component';

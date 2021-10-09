@@ -42,13 +42,13 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call cycle query and add missing value', () => {
         const post: IPost = { id: 456 };
-        const cycle: ICycle = { id: 16552 };
+        const cycle: ICycle = { id: 89142 };
         post.cycle = cycle;
 
-        const cycleCollection: ICycle[] = [{ id: 48547 }];
-        spyOn(cycleService, 'query').and.returnValue(of(new HttpResponse({ body: cycleCollection })));
+        const cycleCollection: ICycle[] = [{ id: 59734 }];
+        jest.spyOn(cycleService, 'query').mockReturnValue(of(new HttpResponse({ body: cycleCollection })));
         const expectedCollection: ICycle[] = [cycle, ...cycleCollection];
-        spyOn(cycleService, 'addCycleToCollectionIfMissing').and.returnValue(expectedCollection);
+        jest.spyOn(cycleService, 'addCycleToCollectionIfMissing').mockReturnValue(expectedCollection);
 
         activatedRoute.data = of({ post });
         comp.ngOnInit();
@@ -60,7 +60,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const post: IPost = { id: 456 };
-        const cycle: ICycle = { id: 33279 };
+        const cycle: ICycle = { id: 63365 };
         post.cycle = cycle;
 
         activatedRoute.data = of({ post });
@@ -74,10 +74,10 @@ describe('Component Tests', () => {
     describe('save', () => {
       it('Should call update service on save for existing entity', () => {
         // GIVEN
-        const saveSubject = new Subject();
+        const saveSubject = new Subject<HttpResponse<Post>>();
         const post = { id: 123 };
-        spyOn(postService, 'update').and.returnValue(saveSubject);
-        spyOn(comp, 'previousState');
+        jest.spyOn(postService, 'update').mockReturnValue(saveSubject);
+        jest.spyOn(comp, 'previousState');
         activatedRoute.data = of({ post });
         comp.ngOnInit();
 
@@ -95,10 +95,10 @@ describe('Component Tests', () => {
 
       it('Should call create service on save for new entity', () => {
         // GIVEN
-        const saveSubject = new Subject();
+        const saveSubject = new Subject<HttpResponse<Post>>();
         const post = new Post();
-        spyOn(postService, 'create').and.returnValue(saveSubject);
-        spyOn(comp, 'previousState');
+        jest.spyOn(postService, 'create').mockReturnValue(saveSubject);
+        jest.spyOn(comp, 'previousState');
         activatedRoute.data = of({ post });
         comp.ngOnInit();
 
@@ -116,10 +116,10 @@ describe('Component Tests', () => {
 
       it('Should set isSaving to false on error', () => {
         // GIVEN
-        const saveSubject = new Subject();
+        const saveSubject = new Subject<HttpResponse<Post>>();
         const post = { id: 123 };
-        spyOn(postService, 'update').and.returnValue(saveSubject);
-        spyOn(comp, 'previousState');
+        jest.spyOn(postService, 'update').mockReturnValue(saveSubject);
+        jest.spyOn(comp, 'previousState');
         activatedRoute.data = of({ post });
         comp.ngOnInit();
 
