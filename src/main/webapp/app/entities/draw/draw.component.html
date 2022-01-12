@@ -1,10 +1,3 @@
-<div id="ngwizard" class="ng-wizard-main ng-wizard-theme-dots">
-  <ul class="nav nav-tabs step-anchor d-flex justify-content-center m-5">
-    <li class="done" *ngFor="let step of steps; let i = index" [ngClass]="{ active: i == 3, done: i < 3 }">
-      <a class="nav-link" (click)="navigate(steps, i)">{{ step.title }}<br /><small>{{ step.description }}</small></a>
-    </li>
-  </ul>
-</div>
 <table class="table table-striped" style="border: 0.5px solid #80808052">
   <thead>
     <tr>
@@ -17,8 +10,18 @@
   </thead>
   <tbody>
     <tr *ngFor="let draw of drawResults; let i=index">
-      <th scope="row"># {{ i }}</th>
+      <th scope="row"># {{ i +1 }}</th>
       <td>@{{ draw }}</td>
     </tr>
   </tbody>
 </table>
+<div class="d-flex justify-content-center" style="    gap: 20px;">
+  <button class="btn btn-info">
+    copie link
+  </button><button class="btn btn-info">
+    share
+  </button>
+  <button class="btn btn-info">
+    download certificate
+  </button>
+</div>

@@ -15,7 +15,7 @@ export type EntityArrayResponseType = HttpResponse<ICycle[]>;
 @Injectable({ providedIn: 'root' })
 export class CycleService {
   protected resourceUrl = this.applicationConfigService.getEndpointFor('api/cycles');
-  currentCycle: ICycle = {};
+  public currentCycle: ICycle = {};
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 

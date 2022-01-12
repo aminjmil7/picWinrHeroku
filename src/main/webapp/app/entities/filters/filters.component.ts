@@ -41,10 +41,16 @@ export class filtersComponent implements OnInit {
       data.map(element => this.filters.push({ filterName: element, selected: false }));
     });
   }
+
   submitFilters() {
     this.router.navigate(['/validation']);
   }
+
   navigate(steps: { title: string; description: string; path: string }[], i: number) {
     if (i <= 1) this.router.navigate([steps[i].path]);
+  }
+
+  previousState(): void {
+    window.history.back();
   }
 }

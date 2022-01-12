@@ -1,9 +1,7 @@
 <div id="ngwizard" class="ng-wizard-main ng-wizard-theme-dots">
   <ul class="nav nav-tabs step-anchor d-flex justify-content-center m-5">
     <li class="done" *ngFor="let step of steps; let i = index" [ngClass]="{ active: i == 1, done: i < 1 }">
-      <a class="nav-link" (click)="navigate(steps, i)"
-        >{{ step.title }}<br /><small>{{ step.description }}</small></a
-      >
+      <a class="nav-link" (click)="navigate(steps, i)">{{ step.title }}<br /><small>{{ step.description }}</small></a>
     </li>
   </ul>
 </div>
@@ -13,4 +11,7 @@
     <label class="form-check-label" [for]="filter.filterName"> {{ filter.filterName }} </label>
   </div>
 </div>
-<button class="btn btn-success btn-next" (click)="submitFilters()">next</button>
+<div class="btn-next">
+  <button class="btn btn-success mr-3" (click)="previousState()">back</button>
+  <button class="btn btn-success" (click)="submitFilters()">next</button>
+</div>

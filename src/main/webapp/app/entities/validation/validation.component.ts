@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { CycleService } from '../cycle/service/cycle.service';
 import { OpcodeService } from '../opcode/service/opcode.service';
+import { Comment } from '../post/post.model';
 import { ValidationService } from './validation.service';
 
 @Component({
@@ -37,10 +38,10 @@ export class validationComponent implements OnInit {
   ];
   updated = true;
   codeError = '';
-  constructor(public opcodeService: OpcodeService, protected router: Router, protected cycleService: CycleService) {}
+  constructor(public opcodeService: OpcodeService, protected router: Router, public cycleService: CycleService) {}
 
   ngOnInit(): void {
-    console.log(this.cycleService.currentCycle);
+    if (this.cycleService.currentCycle.opcode) this.OPCode = this.cycleService.currentCycle.opcode.opirationCode!;
   }
 
   getWinners() {
@@ -85,15 +86,19 @@ export class validationComponent implements OnInit {
   }
 
   selectWinners() {
-    if (this.cycleService.currentCycle.post?.content) {
+    if (this.cycleService.currentCycle.post?.comments && this.cycleService.currentCycle.post?.comments?.length > 0) {
       let winners = '';
-      const obj = JSON.parse(this.cycleService.currentCycle.post.content);
-      for (let index = 0; index < this.nbWinners; index++) {
-        const comment = obj?.comments as Array<any>;
-        const winnerIndex = this.getRandomInt(comment.length);
-        winners += comment[winnerIndex].owner;
-        comment.splice(winnerIndex, 1);
+      let index = 0;
+      while (index < this.nbWinners) {
+        const winnerIndex = this.getRandomInt(this.cycleService.currentCycle.post?.comments.length);
+        if (winners.indexOf(this.cycleService.currentCycle.post?.comments[winnerIndex].ownerName) == -1) {
+          winners += '@' + String(this.cycleService.currentCycle.post?.comments[winnerIndex].ownerName);
+          index++;
+        } else {
+          console.log('winner exist');
+        }
       }
+
       this.cycleService.currentCycle.winners = winners;
       this.cycleService.update(this.cycleService.currentCycle).subscribe();
     }
@@ -101,5 +106,9 @@ export class validationComponent implements OnInit {
 
   getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
+  }
+
+  previousState(): void {
+    window.history.back();
   }
 }

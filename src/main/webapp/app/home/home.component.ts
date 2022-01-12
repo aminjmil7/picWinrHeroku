@@ -5,6 +5,9 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { FacebookService } from './facebook.service';
+import { CycleService } from 'app/entities/cycle/service/cycle.service';
+declare const FB: any;
 
 @Component({
   selector: 'jhi-home',
@@ -15,8 +18,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
 
   private readonly destroy$ = new Subject<void>();
+  loggedIn!: boolean;
 
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    protected facebookService: FacebookService,
+    protected cycleService: CycleService,
+  ) {}
 
   ngOnInit(): void {
     this.accountService

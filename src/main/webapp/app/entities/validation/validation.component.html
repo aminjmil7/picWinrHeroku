@@ -12,24 +12,28 @@
         <div>
           <label class="form-label font-weight-normal" for="opCode"> Opcode</label><span style="color: red">*</span>
           <input class="form-control" [ngClass]="{ 'border-red': !updated }" required (ngModelChange)="updateOPCode()"
-            type="text" placeholder="Ex: BSC00A9FVV7" [(ngModel)]="OPCode" id="opCode" name="opCode" />
+            type="text" placeholder="Ex: BSC00A9FVV7" [disabled]="!!cycleService.currentCycle.opcode"
+            [(ngModel)]="OPCode" id="opCode" name="opCode" />
           <div [hidden]="!codeError || heroForm.form.pristine" class="alert alert-danger">
-            {{codeError}}
+            {{ codeError }}
           </div>
         </div>
         <div>
           <label class="form-label font-weight-normal" for="nbWinners"> Number of winners</label><span
             style="color: red">*</span>
           <input class="form-control w-25" type="number" placeholder="1-9" required [(ngModel)]="nbWinners"
-            id="nbWinners" name="nbWinners" />
+            [max]="cycleService.currentCycle.post?.comments?.length || 0"
+            [disabled]="!!cycleService.currentCycle.opcode" id="nbWinners" name="nbWinners" />
         </div>
         <div class="d-flex justify-content-center mt-5" style="gap: 1em">
           <button class="btn" style="background: #fcc85866">test it</button>
           <button class="btn" style="background: #d3d3d366" type="submit" [disabled]="!heroForm.form.valid">Get The
             Winners !</button>
         </div>
+        <div class="mt-5">
+          <button class="btn btn-success float-right" (click)="previousState()">Back</button>
+        </div>
       </form>
-
     </div>
   </div>
   <div style="flex: 40%; margin: auto; display: flex">
