@@ -36,13 +36,13 @@ export class SocialTwitterComponent implements OnInit {
           result.body.data.forEach((tweet: any) => {
             this.postList.push({
               id: tweet.id,
-              title: tweet.text,
+              title: this.findTweet(tweet.created_at, tweetsData.body)?.user?.screenName,
               nbLikes: tweet.favoriteCount,
               commentCount: 0,
-              date: new Date(tweet.createdAt),
+              date: new Date(tweet.created_at),
               link: 'https://twitter.com/aminjmil4/status/' + String(tweet.id),
-              picture: '',
-              content: 'content',
+              picture: this.findTweet(tweet.created_at, tweetsData.body)?.mediaEntities[0]?.mediaURLHttps,
+              content: tweet.text,
               isSelected: false,
               conversation_id: tweet?.conversation_id,
             });
@@ -50,6 +50,9 @@ export class SocialTwitterComponent implements OnInit {
         });
       });
     });
+  }
+  findTweet(created_at: string, tweetsData: any[]): any {
+    return tweetsData.find(tweet => tweet.createdAt == created_at);
   }
   selectPost(event: any, post: any) {
     post.isSelected = true;
@@ -63,7 +66,7 @@ export class SocialTwitterComponent implements OnInit {
         this.selectedPost.comments?.push({
           id: String(post.id),
           ownerName: String(post.title),
-          message: String(post.title),
+          message: String(post.content),
         });
       }
     });
