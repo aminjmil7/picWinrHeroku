@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface OpcodeRepository extends JpaRepository<Opcode, Long>, JpaSpecificationExecutor<Opcode> {
+public interface OpcodeRepository extends JpaRepository<Opcode, Long> {
     @Query("select opcode from Opcode opcode where opcode.user.login = ?#{principal.username}")
     List<Opcode> findByUserIsCurrentUser();
 }

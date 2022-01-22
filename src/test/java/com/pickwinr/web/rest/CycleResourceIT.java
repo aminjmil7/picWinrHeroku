@@ -309,6 +309,8 @@ class CycleResourceIT {
         Cycle partialUpdatedCycle = new Cycle();
         partialUpdatedCycle.setId(cycle.getId());
 
+        partialUpdatedCycle.email(UPDATED_EMAIL);
+
         restCycleMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedCycle.getId())
@@ -322,7 +324,7 @@ class CycleResourceIT {
         assertThat(cycleList).hasSize(databaseSizeBeforeUpdate);
         Cycle testCycle = cycleList.get(cycleList.size() - 1);
         assertThat(testCycle.getRunDate()).isEqualTo(DEFAULT_RUN_DATE);
-        assertThat(testCycle.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testCycle.getEmail()).isEqualTo(UPDATED_EMAIL);
         assertThat(testCycle.getWinners()).isEqualTo(DEFAULT_WINNERS);
         assertThat(testCycle.getAlternatives()).isEqualTo(DEFAULT_ALTERNATIVES);
     }

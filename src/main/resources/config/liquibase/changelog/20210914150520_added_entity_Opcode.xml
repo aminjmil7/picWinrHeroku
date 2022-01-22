@@ -14,9 +14,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="opiration_code" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
             <column name="count" type="integer">
                 <constraints nullable="false" />
             </column>
@@ -24,6 +21,9 @@
                 <constraints nullable="false" />
             </column>
             <column name="expiration_date" type="${datetimeType}">
+                <constraints nullable="true" />
+            </column>
+            <column name="opiration_code" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">
@@ -51,10 +51,10 @@
                   separator=";"
                   tableName="opcode">
             <column name="id" type="numeric"/>
-            <column name="opiration_code" type="string"/>
             <column name="count" type="numeric"/>
             <column name="ceation_dated" type="${datetimeType}"/>
             <column name="expiration_date" type="${datetimeType}"/>
+            <column name="opiration_code" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

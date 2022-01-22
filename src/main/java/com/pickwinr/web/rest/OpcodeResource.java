@@ -2,9 +2,6 @@ package com.pickwinr.web.rest;
 
 import com.pickwinr.domain.Opcode;
 import com.pickwinr.repository.OpcodeRepository;
-import com.pickwinr.service.OpcodeQueryService;
-import com.pickwinr.service.OpcodeService;
-import com.pickwinr.service.criteria.OpcodeCriteria;
 import com.pickwinr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -17,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -26,6 +24,7 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class OpcodeResource {
 
     private final Logger log = LoggerFactory.getLogger(OpcodeResource.class);
@@ -35,16 +34,10 @@ public class OpcodeResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final OpcodeService opcodeService;
-
     private final OpcodeRepository opcodeRepository;
 
-    private final OpcodeQueryService opcodeQueryService;
-
-    public OpcodeResource(OpcodeService opcodeService, OpcodeRepository opcodeRepository, OpcodeQueryService opcodeQueryService) {
-        this.opcodeService = opcodeService;
+    public OpcodeResource(OpcodeRepository opcodeRepository) {
         this.opcodeRepository = opcodeRepository;
-        this.opcodeQueryService = opcodeQueryService;
     }
 
     /**
@@ -60,7 +53,7 @@ public class OpcodeResource {
         if (opcode.getId() != null) {
             throw new BadRequestAlertException("A new opcode cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Opcode result = opcodeService.save(opcode);
+        Opcode result = opcodeRepository.save(opcode);
         return ResponseEntity
             .created(new URI("/api/opcodes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -94,7 +87,7 @@ public class OpcodeResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Opcode result = opcodeService.save(opcode);
+        Opcode result = opcodeRepository.save(opcode);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, opcode.getId().toString()))
@@ -129,7 +122,27 @@ public class OpcodeResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Opcode> result = opcodeService.partialUpdate(opcode);
+        Optional<Opcode> result = opcodeRepository
+            .findById(opcode.getId())
+            .map(
+                existingOpcode -> {
+                    if (opcode.getCount() != null) {
+                        existingOpcode.setCount(opcode.getCount());
+                    }
+                    if (opcode.getCeationDated() != null) {
+                        existingOpcode.setCeationDated(opcode.getCeationDated());
+                    }
+                    if (opcode.getExpirationDate() != null) {
+                        existingOpcode.setExpirationDate(opcode.getExpirationDate());
+                    }
+                    if (opcode.getOpirationCode() != null) {
+                        existingOpcode.setOpirationCode(opcode.getOpirationCode());
+                    }
+
+                    return existingOpcode;
+                }
+            )
+            .map(opcodeRepository::save);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -140,26 +153,12 @@ public class OpcodeResource {
     /**
      * {@code GET  /opcodes} : get all the opcodes.
      *
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of opcodes in body.
      */
     @GetMapping("/opcodes")
-    public ResponseEntity<List<Opcode>> getAllOpcodes(OpcodeCriteria criteria) {
-        log.debug("REST request to get Opcodes by criteria: {}", criteria);
-        List<Opcode> entityList = opcodeQueryService.findByCriteria(criteria);
-        return ResponseEntity.ok().body(entityList);
-    }
-
-    /**
-     * {@code GET  /opcodes/count} : count all the opcodes.
-     *
-     * @param criteria the criteria which the requested entities should match.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-     */
-    @GetMapping("/opcodes/count")
-    public ResponseEntity<Long> countOpcodes(OpcodeCriteria criteria) {
-        log.debug("REST request to count Opcodes by criteria: {}", criteria);
-        return ResponseEntity.ok().body(opcodeQueryService.countByCriteria(criteria));
+    public List<Opcode> getAllOpcodes() {
+        log.debug("REST request to get all Opcodes");
+        return opcodeRepository.findAll();
     }
 
     /**
@@ -171,7 +170,7 @@ public class OpcodeResource {
     @GetMapping("/opcodes/{id}")
     public ResponseEntity<Opcode> getOpcode(@PathVariable Long id) {
         log.debug("REST request to get Opcode : {}", id);
-        Optional<Opcode> opcode = opcodeService.findOne(id);
+        Optional<Opcode> opcode = opcodeRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(opcode);
     }
 
@@ -184,7 +183,7 @@ public class OpcodeResource {
     @DeleteMapping("/opcodes/{id}")
     public ResponseEntity<Void> deleteOpcode(@PathVariable Long id) {
         log.debug("REST request to delete Opcode : {}", id);
-        opcodeService.delete(id);
+        opcodeRepository.deleteById(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
