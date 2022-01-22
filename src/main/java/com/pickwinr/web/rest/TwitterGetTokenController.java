@@ -43,7 +43,7 @@ public class TwitterGetTokenController {
 			System.out.println("lllllllllllllllll");
 
 			// get the callback url so they get back here
-			String callbackUrl = "http://localhost:9000/welcome";
+			String callbackUrl = "https://pickwinr-webapp.herokuapp.com/welcome";
 
 			// go get the request token from Twitter
 			RequestToken requestToken = twitter.getOAuthRequestToken(callbackUrl);
