@@ -40,9 +40,6 @@ class OpcodeResourceIT {
     private static final Instant DEFAULT_EXPIRATION_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_EXPIRATION_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final String DEFAULT_OPIRATION_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_OPIRATION_CODE = "BBBBBBBBBB";
-
     private static final String ENTITY_API_URL = "/api/opcodes";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -67,11 +64,7 @@ class OpcodeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Opcode createEntity(EntityManager em) {
-        Opcode opcode = new Opcode()
-            .count(DEFAULT_COUNT)
-            .ceationDated(DEFAULT_CEATION_DATED)
-            .expirationDate(DEFAULT_EXPIRATION_DATE)
-            .opirationCode(DEFAULT_OPIRATION_CODE);
+        Opcode opcode = new Opcode().count(DEFAULT_COUNT).ceationDated(DEFAULT_CEATION_DATED).expirationDate(DEFAULT_EXPIRATION_DATE);
         return opcode;
     }
 
@@ -82,11 +75,7 @@ class OpcodeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Opcode createUpdatedEntity(EntityManager em) {
-        Opcode opcode = new Opcode()
-            .count(UPDATED_COUNT)
-            .ceationDated(UPDATED_CEATION_DATED)
-            .expirationDate(UPDATED_EXPIRATION_DATE)
-            .opirationCode(UPDATED_OPIRATION_CODE);
+        Opcode opcode = new Opcode().count(UPDATED_COUNT).ceationDated(UPDATED_CEATION_DATED).expirationDate(UPDATED_EXPIRATION_DATE);
         return opcode;
     }
 
@@ -111,7 +100,6 @@ class OpcodeResourceIT {
         assertThat(testOpcode.getCount()).isEqualTo(DEFAULT_COUNT);
         assertThat(testOpcode.getCeationDated()).isEqualTo(DEFAULT_CEATION_DATED);
         assertThat(testOpcode.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
-        assertThat(testOpcode.getOpirationCode()).isEqualTo(DEFAULT_OPIRATION_CODE);
     }
 
     @Test
@@ -180,8 +168,7 @@ class OpcodeResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(opcode.getId().intValue())))
             .andExpect(jsonPath("$.[*].count").value(hasItem(DEFAULT_COUNT)))
             .andExpect(jsonPath("$.[*].ceationDated").value(hasItem(DEFAULT_CEATION_DATED.toString())))
-            .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].opirationCode").value(hasItem(DEFAULT_OPIRATION_CODE)));
+            .andExpect(jsonPath("$.[*].expirationDate").value(hasItem(DEFAULT_EXPIRATION_DATE.toString())));
     }
 
     @Test
@@ -198,8 +185,7 @@ class OpcodeResourceIT {
             .andExpect(jsonPath("$.id").value(opcode.getId().intValue()))
             .andExpect(jsonPath("$.count").value(DEFAULT_COUNT))
             .andExpect(jsonPath("$.ceationDated").value(DEFAULT_CEATION_DATED.toString()))
-            .andExpect(jsonPath("$.expirationDate").value(DEFAULT_EXPIRATION_DATE.toString()))
-            .andExpect(jsonPath("$.opirationCode").value(DEFAULT_OPIRATION_CODE));
+            .andExpect(jsonPath("$.expirationDate").value(DEFAULT_EXPIRATION_DATE.toString()));
     }
 
     @Test
@@ -221,11 +207,7 @@ class OpcodeResourceIT {
         Opcode updatedOpcode = opcodeRepository.findById(opcode.getId()).get();
         // Disconnect from session so that the updates on updatedOpcode are not directly saved in db
         em.detach(updatedOpcode);
-        updatedOpcode
-            .count(UPDATED_COUNT)
-            .ceationDated(UPDATED_CEATION_DATED)
-            .expirationDate(UPDATED_EXPIRATION_DATE)
-            .opirationCode(UPDATED_OPIRATION_CODE);
+        updatedOpcode.count(UPDATED_COUNT).ceationDated(UPDATED_CEATION_DATED).expirationDate(UPDATED_EXPIRATION_DATE);
 
         restOpcodeMockMvc
             .perform(
@@ -242,7 +224,6 @@ class OpcodeResourceIT {
         assertThat(testOpcode.getCount()).isEqualTo(UPDATED_COUNT);
         assertThat(testOpcode.getCeationDated()).isEqualTo(UPDATED_CEATION_DATED);
         assertThat(testOpcode.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testOpcode.getOpirationCode()).isEqualTo(UPDATED_OPIRATION_CODE);
     }
 
     @Test
@@ -313,7 +294,7 @@ class OpcodeResourceIT {
         Opcode partialUpdatedOpcode = new Opcode();
         partialUpdatedOpcode.setId(opcode.getId());
 
-        partialUpdatedOpcode.count(UPDATED_COUNT).opirationCode(UPDATED_OPIRATION_CODE);
+        partialUpdatedOpcode.ceationDated(UPDATED_CEATION_DATED).expirationDate(UPDATED_EXPIRATION_DATE);
 
         restOpcodeMockMvc
             .perform(
@@ -327,10 +308,9 @@ class OpcodeResourceIT {
         List<Opcode> opcodeList = opcodeRepository.findAll();
         assertThat(opcodeList).hasSize(databaseSizeBeforeUpdate);
         Opcode testOpcode = opcodeList.get(opcodeList.size() - 1);
-        assertThat(testOpcode.getCount()).isEqualTo(UPDATED_COUNT);
-        assertThat(testOpcode.getCeationDated()).isEqualTo(DEFAULT_CEATION_DATED);
-        assertThat(testOpcode.getExpirationDate()).isEqualTo(DEFAULT_EXPIRATION_DATE);
-        assertThat(testOpcode.getOpirationCode()).isEqualTo(UPDATED_OPIRATION_CODE);
+        assertThat(testOpcode.getCount()).isEqualTo(DEFAULT_COUNT);
+        assertThat(testOpcode.getCeationDated()).isEqualTo(UPDATED_CEATION_DATED);
+        assertThat(testOpcode.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
     }
 
     @Test
@@ -345,11 +325,7 @@ class OpcodeResourceIT {
         Opcode partialUpdatedOpcode = new Opcode();
         partialUpdatedOpcode.setId(opcode.getId());
 
-        partialUpdatedOpcode
-            .count(UPDATED_COUNT)
-            .ceationDated(UPDATED_CEATION_DATED)
-            .expirationDate(UPDATED_EXPIRATION_DATE)
-            .opirationCode(UPDATED_OPIRATION_CODE);
+        partialUpdatedOpcode.count(UPDATED_COUNT).ceationDated(UPDATED_CEATION_DATED).expirationDate(UPDATED_EXPIRATION_DATE);
 
         restOpcodeMockMvc
             .perform(
@@ -366,7 +342,6 @@ class OpcodeResourceIT {
         assertThat(testOpcode.getCount()).isEqualTo(UPDATED_COUNT);
         assertThat(testOpcode.getCeationDated()).isEqualTo(UPDATED_CEATION_DATED);
         assertThat(testOpcode.getExpirationDate()).isEqualTo(UPDATED_EXPIRATION_DATE);
-        assertThat(testOpcode.getOpirationCode()).isEqualTo(UPDATED_OPIRATION_CODE);
     }
 
     @Test

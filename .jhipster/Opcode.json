@@ -14,10 +14,6 @@
     {
       "fieldName": "expirationDate",
       "fieldType": "Instant"
-    },
-    {
-      "fieldName": "opirationCode",
-      "fieldType": "String"
     }
   ],
   "relationships": [

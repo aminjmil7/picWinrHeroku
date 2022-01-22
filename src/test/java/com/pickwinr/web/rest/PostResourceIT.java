@@ -309,6 +309,8 @@ class PostResourceIT {
         Post partialUpdatedPost = new Post();
         partialUpdatedPost.setId(post.getId());
 
+        partialUpdatedPost.commentCount(UPDATED_COMMENT_COUNT).content(UPDATED_CONTENT);
+
         restPostMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedPost.getId())
@@ -322,8 +324,8 @@ class PostResourceIT {
         assertThat(postList).hasSize(databaseSizeBeforeUpdate);
         Post testPost = postList.get(postList.size() - 1);
         assertThat(testPost.getLink()).isEqualTo(DEFAULT_LINK);
-        assertThat(testPost.getCommentCount()).isEqualTo(DEFAULT_COMMENT_COUNT);
-        assertThat(testPost.getContent()).isEqualTo(DEFAULT_CONTENT);
+        assertThat(testPost.getCommentCount()).isEqualTo(UPDATED_COMMENT_COUNT);
+        assertThat(testPost.getContent()).isEqualTo(UPDATED_CONTENT);
     }
 
     @Test

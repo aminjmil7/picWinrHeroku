@@ -2,6 +2,9 @@ package com.pickwinr.web.rest;
 
 import com.pickwinr.domain.Post;
 import com.pickwinr.repository.PostRepository;
+import com.pickwinr.service.PostQueryService;
+import com.pickwinr.service.PostService;
+import com.pickwinr.service.criteria.PostCriteria;
 import com.pickwinr.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
@@ -24,7 +26,6 @@ import tech.jhipster.web.util.ResponseUtil;
  */
 @RestController
 @RequestMapping("/api")
-@Transactional
 public class PostResource {
 
     private final Logger log = LoggerFactory.getLogger(PostResource.class);
@@ -34,10 +35,16 @@ public class PostResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    private final PostService postService;
+
     private final PostRepository postRepository;
 
-    public PostResource(PostRepository postRepository) {
+    private final PostQueryService postQueryService;
+
+    public PostResource(PostService postService, PostRepository postRepository, PostQueryService postQueryService) {
+        this.postService = postService;
         this.postRepository = postRepository;
+        this.postQueryService = postQueryService;
     }
 
     /**
@@ -53,7 +60,7 @@ public class PostResource {
         if (post.getId() != null) {
             throw new BadRequestAlertException("A new post cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Post result = postRepository.save(post);
+        Post result = postService.save(post);
         return ResponseEntity
             .created(new URI("/api/posts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -85,7 +92,7 @@ public class PostResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Post result = postRepository.save(post);
+        Post result = postService.save(post);
         return ResponseEntity
             .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, post.getId().toString()))
@@ -120,24 +127,7 @@ public class PostResource {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
-        Optional<Post> result = postRepository
-            .findById(post.getId())
-            .map(
-                existingPost -> {
-                    if (post.getLink() != null) {
-                        existingPost.setLink(post.getLink());
-                    }
-                    if (post.getCommentCount() != null) {
-                        existingPost.setCommentCount(post.getCommentCount());
-                    }
-                    if (post.getContent() != null) {
-                        existingPost.setContent(post.getContent());
-                    }
-
-                    return existingPost;
-                }
-            )
-            .map(postRepository::save);
+        Optional<Post> result = postService.partialUpdate(post);
 
         return ResponseUtil.wrapOrNotFound(
             result,
@@ -148,12 +138,26 @@ public class PostResource {
     /**
      * {@code GET  /posts} : get all the posts.
      *
+     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of posts in body.
      */
     @GetMapping("/posts")
-    public List<Post> getAllPosts() {
-        log.debug("REST request to get all Posts");
-        return postRepository.findAll();
+    public ResponseEntity<List<Post>> getAllPosts(PostCriteria criteria) {
+        log.debug("REST request to get Posts by criteria: {}", criteria);
+        List<Post> entityList = postQueryService.findByCriteria(criteria);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    /**
+     * {@code GET  /posts/count} : count all the posts.
+     *
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
+     */
+    @GetMapping("/posts/count")
+    public ResponseEntity<Long> countPosts(PostCriteria criteria) {
+        log.debug("REST request to count Posts by criteria: {}", criteria);
+        return ResponseEntity.ok().body(postQueryService.countByCriteria(criteria));
     }
 
     /**
@@ -165,7 +169,7 @@ public class PostResource {
     @GetMapping("/posts/{id}")
     public ResponseEntity<Post> getPost(@PathVariable Long id) {
         log.debug("REST request to get Post : {}", id);
-        Optional<Post> post = postRepository.findById(id);
+        Optional<Post> post = postService.findOne(id);
         return ResponseUtil.wrapOrNotFound(post);
     }
 
@@ -178,7 +182,7 @@ public class PostResource {
     @DeleteMapping("/posts/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         log.debug("REST request to delete Post : {}", id);
-        postRepository.deleteById(id);
+        postService.delete(id);
         return ResponseEntity
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
