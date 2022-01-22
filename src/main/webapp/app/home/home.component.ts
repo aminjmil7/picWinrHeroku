@@ -7,7 +7,6 @@ import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
 import { FacebookService } from './facebook.service';
 import { CycleService } from 'app/entities/cycle/service/cycle.service';
-declare const FB: any;
 
 @Component({
   selector: 'jhi-home',
