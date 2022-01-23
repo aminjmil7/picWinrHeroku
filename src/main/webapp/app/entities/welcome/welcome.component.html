@@ -1,5 +1,14 @@
 <div class="d-flex justify-content-end">
-  <h5 style="color: #85afe5; cursor: pointer" class="mr-2" [routerLink]="['/jhipster']">Login</h5>
+  <ng-container *ngIf="accountService.isAuthenticated(); else elseLoginTemplate">
+    <h5 style="color: #2bd311; cursor: pointer" class="mr-2" [routerLink]="['/jhipster']">
+      {{ (accountService.getAuthenticationState() | async)?.firstName }}
+    </h5>
+  </ng-container>
+  <ng-template #elseLoginTemplate>
+    <h5 style="color: #85afe5; cursor: pointer" class="mr-2" [routerLink]="['/jhipster']">
+      Login
+    </h5>
+  </ng-template>
   |
   <h5 style="color: #85afe5" class="ml-2">Help</h5>
 </div>
@@ -9,7 +18,7 @@
       <img class="logo" src="../../../content/images/logo.png" alt="Pic Winr Logo" />
     </div>
     <div class="d-flex justify-content-around mb-3">
-      <ng-container *ngIf="facebookService.accessToken; else elseTemplate">
+      <ng-container *ngIf="facebookService.accessToken; else elseSingInTemplate">
         <div class="d-flex justify-content-between" style="border: 1px solid black;">
           <div style="width: 50%; margin: auto;">
             <img class="social-icon" src="../../../content/svg/facebook.svg" alt="facebook"
@@ -21,7 +30,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-template #elseTemplate>
+      <ng-template #elseSingInTemplate>
         <img class="social-icon" src="../../../content/svg/facebook.svg" alt="facebook"
           (click)="signInWithFacebook()" />
       </ng-template>

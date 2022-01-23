@@ -65,7 +65,6 @@ export class validationComponent implements OnInit {
           }
           if (OpCode.count) OpCode.count--;
           this.cycleService.currentCycle.opcode = OpCode;
-          console.log(this.cycleService.currentCycle);
           this.selectWinners();
 
           this.opcodeService.update(OpCode).subscribe(abc => {
@@ -86,16 +85,20 @@ export class validationComponent implements OnInit {
   }
 
   selectWinners() {
-    if (this.cycleService.currentCycle.post?.comments && this.cycleService.currentCycle.post?.comments?.length > 0) {
+    const commentList = this.cycleService.currentCycle.post?.comments;
+    if (commentList && commentList?.length > 0) {
       let winners = '';
       let index = 0;
       while (index < this.nbWinners) {
-        const winnerIndex = this.getRandomInt(this.cycleService.currentCycle.post?.comments.length);
-        if (winners.indexOf(this.cycleService.currentCycle.post?.comments[winnerIndex].ownerName) == -1) {
-          winners += '@' + String(this.cycleService.currentCycle.post?.comments[winnerIndex].ownerName);
+        const winnerIndex = this.getRandomInt(commentList.length);
+        if (winners.indexOf(commentList[winnerIndex].ownerName) == -1) {
+          winners += '@' + String(commentList[winnerIndex].ownerName);
           index++;
         } else {
-          console.log('winner exist');
+          const otherWinners = commentList.filter(comment => comment.ownerName != commentList[winnerIndex].ownerName);
+          if (otherWinners.length === 0) {
+            index = this.nbWinners + 1;
+          }
         }
       }
 

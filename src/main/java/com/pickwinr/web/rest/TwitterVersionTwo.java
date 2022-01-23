@@ -152,7 +152,7 @@ public class TwitterVersionTwo {
     if (null != entity) {
       userResponse = EntityUtils.toString(entity, "UTF-8");
     }
-    System.out.println(userResponse);
+
     return userResponse;
   }
 

@@ -3,8 +3,7 @@ import { faClock, faComments, faHeart } from '@fortawesome/free-regular-svg-icon
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CycleService } from 'app/entities/cycle/service/cycle.service';
-import { Post } from 'app/entities/post/post.model';
-import { TwitterService } from 'app/home/twitter.service';
+import { TwitterService } from 'app/entities/welcome/social-twitter/twitter.service';
 
 @Component({
   selector: 'app-social-twitter',
@@ -27,21 +26,17 @@ export class SocialTwitterComponent implements OnInit {
   ngOnInit(): void {
     this.postList = [];
     this.twitterService.getMyTweets(this.twitterAuth_verifier).subscribe(tweetsData => {
-      console.clear();
-      console.log(tweetsData);
       this.twitterService.getProfileInfo(tweetsData.body[0].user.screenName).subscribe(res => {
-        console.log(res.body.data[0].id);
         this.twitterService.getTimelineTweets(res.body.data[0].id).subscribe(result => {
-          console.log(result);
-          result.body.data.forEach((tweet: any) => {
+          result.body.data.forEach((tweet: any, index: number) => {
             this.postList.push({
               id: tweet.id,
-              title: this.findTweet(tweet.created_at, tweetsData.body)?.user?.screenName,
+              title: tweetsData.body[index]?.user?.screenName,
               nbLikes: tweet.favoriteCount,
               commentCount: 0,
               date: new Date(tweet.created_at),
               link: 'https://twitter.com/aminjmil4/status/' + String(tweet.id),
-              picture: this.findTweet(tweet.created_at, tweetsData.body)?.mediaEntities[0]?.mediaURLHttps,
+              picture: tweetsData.body[index]?.mediaEntities[0]?.mediaURLHttps,
               content: tweet.text,
               isSelected: false,
               conversation_id: tweet?.conversation_id,

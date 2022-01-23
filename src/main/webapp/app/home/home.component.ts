@@ -5,7 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
-import { FacebookService } from './facebook.service';
+import { FacebookService } from '../entities/welcome/social-facebook/facebook.service';
 import { CycleService } from 'app/entities/cycle/service/cycle.service';
 
 @Component({

@@ -4,7 +4,7 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CycleService } from 'app/entities/cycle/service/cycle.service';
 import { Post } from 'app/entities/post/post.model';
-import { YoutubeService } from 'app/home/youtube-service';
+import { YoutubeService } from 'app/entities/welcome/social-youtube/youtube-service';
 
 @Component({
   selector: 'app-social-youtube',

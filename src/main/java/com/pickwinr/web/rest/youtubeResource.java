@@ -63,9 +63,6 @@ public class youtubeResource {
                 .setVideoId(link)
                 .execute();
 
-        System.out.println("**************************");
-        System.out.println(response);
-        System.out.println(link);
         return ResponseUtil.wrapOrNotFound(Optional.of(response));
     }
 }

@@ -95,33 +95,6 @@ public class FaceboolSocialResource {
                         "fields",
                         "name,created_time,description,full_picture,from,id,message,reactions.summary(total_count),comments.summary(total_count)"));
 
-        // System.out.println(me.);
-        // System.out.println("************* ** *******");
-        // new FacebookConnectionFactory("559836958693019",
-        // "399499e964b5cbadc03a6ff7156b521f");
-        // this.connectionRepository.findPrimaryConnection(Facebook.class);
-        // Facebook facebook = new FacebookTemplate(
-        // "EAAH9KzMOFpsBAEqEW9EhXHH9hgBXqlpXn9AJe98ukSQfdHPiZBBxhjWKipv6tmxDbAeiTZCm194lGOZC9jtnFdBpWu83MG4oKy5JZAcAmCsm2hAvPwQqznWWoKyyeOz3C512XmZB1fqRTGU4zQeD6L3GRo8sY82aZBLQnssF8WZADArnFsurmQ9cvE4C2w2CmgLZB4MiZCdbvVBibJkE8tPccRtGKAp4ZBm18ZD"
-        // );
-        // final String[] fields = { "email", "picture" };
-        // User user = facebook.fetchObject("me", User.class, fields);
-        // PagedList<Post> posts = facebook.feedOperations().getFeed();
-        // System.out.println("-------------------------");
-
-        // List<Reference> friends = facebook.friendOperations().getFriends();
-
-        // PagedList<Post> posts = facebook.feedOperations().getFeed();
-        // List<Reference> friends = facebook.friendOperations().getFriends();
-        // String[] fiels = { "id", "name", "email", "gender" };
-        // User userProfile = facebook.fetchObject("me", User.class, fiels);
-        // model.addAttribute("friends", friends);
-
-        // System.out.println("************* ** *******");
-        // System.out.println(friends);
-        // model.addAttribute("profileName", posts.get(0).getFrom().getName());
-        // model.addAttribute("posts", posts);
-        // model.addAttribute("userProfile", userProfile);
-
         return ResponseUtil.wrapOrNotFound(Optional.of(userPosts));
     }
 }

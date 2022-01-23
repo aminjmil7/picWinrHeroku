@@ -34,22 +34,18 @@ public class TwitterGetTokenController {
 	@RequestMapping("twitter/getToken")
 	public ResponseEntity<TwitterKey> getToken(HttpServletRequest request) {
 		// this will be the URL that we take the user to
-		System.out.println("******************");
 		String twitterUrl = "";
 
 		try {
 			// get the Twitter object
 			twitter = getTwitter();
-			System.out.println("lllllllllllllllll");
 
 			// get the callback url so they get back here
-			String callbackUrl = "https://pickwinr-webapp.herokuapp.com/welcome";
+			String callbackUrl = "http://localhost:9000/welcome";
 
 			// go get the request token from Twitter
 			RequestToken requestToken = twitter.getOAuthRequestToken(callbackUrl);
 			// put the token in the session because we'll need it later
-			System.out.println("JAVA TOKEN");
-			System.out.println(requestToken);
 			request.getSession().setAttribute("requestToken", requestToken);
 
 			// let's put Twitter in the session as well
@@ -62,7 +58,6 @@ public class TwitterGetTokenController {
 		} catch (Exception e) {
 			LOGGER.error("Problem logging in with Twitter!", e);
 		}
-		System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
 
 		TwitterKey resultKey = new TwitterKey(twitterUrl);
 		return ResponseUtil.wrapOrNotFound(Optional.of(resultKey));
@@ -102,14 +97,6 @@ public class TwitterGetTokenController {
 		try {
 			AccessToken token = twitter.getOAuthAccessToken(requestToken, oauthVerifier);
 			ResponseList<Status> mytweets = twitter.getUserTimeline();
-			for (Status s : mytweets) {
-				System.out.println("==================");
-				System.out.println(s.getId());
-				ResponseList<Status> abcList = twitter.getRetweets(s.getId());
-				System.out.println("RRRRRRRRRRRRRRRRrr");
-				System.out.println(abcList);
-				System.out.println("RRRRRRRRRRRRRRRRR");
-			}
 
 			return ResponseUtil.wrapOrNotFound(Optional.of(mytweets));
 		} catch (Exception e) {

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faClock, faComments, faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FacebookService } from 'app/home/facebook.service';
-import { TwitterService } from 'app/home/twitter.service';
-import { YoutubeService } from 'app/home/youtube-service';
+import { AccountService } from 'app/core/auth/account.service';
+import { FacebookService } from 'app/entities/welcome/social-facebook/facebook.service';
+import { TwitterService } from 'app/entities/welcome/social-twitter/twitter.service';
+import { YoutubeService } from 'app/entities/welcome/social-youtube/youtube-service';
 import { CycleService } from '../cycle/service/cycle.service';
 import { Comment, Post } from '../post/post.model';
 import { SocialFacebookComponent } from './social-facebook/social-facebook.component';
@@ -21,13 +20,8 @@ declare const FB: any;
 export class WelcomeComponent implements OnInit {
   closeResult: string | undefined;
   postList: any[] = [];
-  fa_Heart = faHeart;
-  fa_Comments = faComments;
-  fa_Clock = faClock;
-  fa_Link = faLink;
   selectedPost: Post = {};
   Pages: any[] = [];
-  selectedPage: any;
   profile: any;
   twitterAuth_token: string | undefined;
   twitterAuth_verifier: string | undefined;
@@ -39,7 +33,8 @@ export class WelcomeComponent implements OnInit {
     public facebookService: FacebookService,
     public twitterService: TwitterService,
     public youtubeService: YoutubeService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    public accountService: AccountService,
   ) {
     FB.init({
       appId: '559836958693019',
@@ -167,10 +162,6 @@ export class WelcomeComponent implements OnInit {
 
   instagram() {
     window.location.href =
-      'https://api.instagram.com/oauth/authorize?client_id=1087161935189461&redirect_uri=https://socialsizzle.heroku.com/auth/&scope=user_profile,user_media&response_type=code';
-
-    // this.facebookService.getInstagram(this.facebookService.accessToken).subscribe(res => {
-    //   console.log(res);
-    // });
+      'https://api.instagram.com/oauth/authorize?client_id=1087161935189461&redirect_uri=https://pickwinr-webapp.herokuapp.com/welcome&scope=user_profile,user_media&response_type=code';
   }
 }
