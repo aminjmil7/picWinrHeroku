@@ -10,6 +10,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -160,4 +161,37 @@ public class TwitterVersionTwo {
 
         return userResponse;
     }
+
+    @GetMapping("instagram/accessToken/{code}")
+    private String getAccessToken(@PathVariable String code) throws IOException, URISyntaxException {
+        String userResponse = null;
+
+        HttpClient httpClient = HttpClients
+            .custom()
+            .setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build())
+            .build();
+
+        URIBuilder uriBuilder = new URIBuilder("https://api.instagram.com/oauth/access_token");
+        ArrayList<NameValuePair> queryParameters;
+        queryParameters = new ArrayList<>();
+        queryParameters.add(new BasicNameValuePair("client_id", "1087161935189461"));
+        queryParameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        queryParameters.add(new BasicNameValuePair("code", code));
+        queryParameters.add(new BasicNameValuePair("client_secret", "ea04816ebaa1690167fdb3d9c39580c5"));
+        queryParameters.add(new BasicNameValuePair("redirect_uri", "https://pickwinr-webapp.herokuapp.com/welcome"));
+
+        uriBuilder.addParameters(queryParameters);
+
+        HttpPost httpPost = new HttpPost(uriBuilder.build());
+        httpPost.setHeader("Content-Type", "application/json");
+
+        HttpResponse response = httpClient.execute(httpPost);
+        HttpEntity entity = response.getEntity();
+        if (null != entity) {
+            userResponse = EntityUtils.toString(entity, "UTF-8");
+        }
+
+        return userResponse;
+    }
+
 }
