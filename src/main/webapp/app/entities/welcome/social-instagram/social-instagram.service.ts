@@ -10,12 +10,12 @@ export class InstagramService {
     return this.http.get<any>(
       'https://api.instagram.com/oauth/access_token?client_id=' +
         client_id +
-        'client_secret=' +
+        '&client_secret=' +
         client_secret +
-        'grant_type=authorization_code' +
-        'redirect_uri=' +
+        '&grant_type=authorization_code' +
+        '&redirect_uri=' +
         redirect_uri +
-        'code=' +
+        '&code=' +
         code,
       { observe: 'response' }
     );
