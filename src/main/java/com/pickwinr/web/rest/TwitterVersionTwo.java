@@ -162,7 +162,7 @@ public class TwitterVersionTwo {
         return userResponse;
     }
 
-    @GetMapping("instagram/accessToken/{code}")
+    @GetMapping("twitter/v2/accessToken/{code}")
     private String getAccessToken(@PathVariable String code) throws IOException, URISyntaxException {
         String userResponse = null;
 
