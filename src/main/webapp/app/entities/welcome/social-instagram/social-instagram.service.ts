@@ -15,6 +15,10 @@ export class InstagramService {
         code: code,
         grant_type: 'authorization_code',
         redirect_uri: redirect_uri,
+      },
+      {
+        withCredentials: true,
+        responseType: 'json',
       }
     );
   }
