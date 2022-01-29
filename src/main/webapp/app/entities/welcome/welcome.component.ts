@@ -54,8 +54,13 @@ export class WelcomeComponent implements OnInit {
     console.clear();
     this.configurationService.getPropertySources().subscribe(propertySources => {
       console.log(propertySources);
-      this.instagramClientId = propertySources[4].properties.instagramClientId.value;
-      this.instagramRedirectUri = propertySources[4].properties.instagramRedirectUri.value;
+      if (propertySources[4].properties.instagramClientId) {
+        this.instagramClientId = propertySources[4].properties.instagramClientId.value;
+        this.instagramRedirectUri = propertySources[4].properties.instagramRedirectUri.value;
+      } else {
+        this.instagramClientId = propertySources[6].properties.instagramClientId.value;
+        this.instagramRedirectUri = propertySources[6].properties.instagramRedirectUri.value;
+      }
       console.log(this.instagramClientId);
       console.log(this.instagramRedirectUri);
     });
