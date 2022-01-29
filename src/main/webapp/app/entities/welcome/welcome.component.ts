@@ -73,7 +73,7 @@ export class WelcomeComponent implements OnInit {
         modalRef.componentInstance.parentComponent = this;
       }
 
-      const instagramCode = res.oauth_verifier;
+      const instagramCode = res.code;
       if (instagramCode) {
         this.postList = [];
         const modalRef = this.modalService.open(SocialInstagramComponent, { size: 'lg', centered: true });
