@@ -53,8 +53,11 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     console.clear();
     this.configurationService.getPropertySources().subscribe(propertySources => {
+      console.log(propertySources);
       this.instagramClientId = propertySources[4].properties.instagramClientId.value;
       this.instagramRedirectUri = propertySources[4].properties.instagramRedirectUri.value;
+      console.log(this.instagramClientId);
+      console.log(this.instagramRedirectUri);
     });
     this.activeRoute.queryParams.subscribe(res => {
       const twitterAuth_verifier = res.oauth_verifier;
