@@ -13,6 +13,9 @@ export class FacebookService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
+  getClientId(): Observable<EntityResponseType> {
+    return this.http.get<any>(`${this.resourceUrl}/facebookClientId`, { observe: 'response' });
+  }
   getProfile(accessToken: string): Observable<EntityResponseType> {
     return this.http.get<any>(`${this.resourceUrl}/${accessToken}/profile`, { observe: 'response' });
   }

@@ -26,8 +26,12 @@ export class SocialTwitterComponent implements OnInit {
   ngOnInit(): void {
     this.postList = [];
     this.twitterService.getMyTweets(this.twitterAuth_verifier).subscribe(tweetsData => {
+      console.clear();
+      console.log(tweetsData);
       this.twitterService.getProfileInfo(tweetsData.body[0].user.screenName).subscribe(res => {
+        console.log(res);
         this.twitterService.getTimelineTweets(res.body.data[0].id).subscribe(result => {
+          console.log(result);
           result.body.data.forEach((tweet: any, index: number) => {
             this.postList.push({
               id: tweet.id,

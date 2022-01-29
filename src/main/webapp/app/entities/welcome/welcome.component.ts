@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Property } from 'app/admin/configuration/configuration.model';
+import { ConfigurationService } from 'app/admin/configuration/configuration.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { FacebookService } from 'app/entities/welcome/social-facebook/facebook.service';
 import { TwitterService } from 'app/entities/welcome/social-twitter/twitter.service';
@@ -8,6 +10,7 @@ import { YoutubeService } from 'app/entities/welcome/social-youtube/youtube-serv
 import { CycleService } from '../cycle/service/cycle.service';
 import { Comment, Post } from '../post/post.model';
 import { SocialFacebookComponent } from './social-facebook/social-facebook.component';
+import { SocialInstagramComponent } from './social-instagram/social-instagram.component';
 import { SocialTwitterComponent } from './social-twitter/social-twitter.component';
 import { SocialYoutubeComponent } from './social-youtube/social-youtube.component';
 declare const FB: any;
@@ -23,8 +26,8 @@ export class WelcomeComponent implements OnInit {
   selectedPost: Post = {};
   Pages: any[] = [];
   profile: any;
-  twitterAuth_token: string | undefined;
-  twitterAuth_verifier: string | undefined;
+  instagramClientId = '';
+  instagramRedirectUri = '';
 
   constructor(
     public modalService: NgbModal,
@@ -35,23 +38,38 @@ export class WelcomeComponent implements OnInit {
     public youtubeService: YoutubeService,
     private activeRoute: ActivatedRoute,
     public accountService: AccountService,
+    private configurationService: ConfigurationService
   ) {
-    FB.init({
-      appId: '559836958693019',
-      cookie: true,
-      xfbml: true,
-      version: 'v12.0',
+    this.facebookService.getClientId().subscribe(res => {
+      FB.init({
+        appId: res.body,
+        cookie: true,
+        xfbml: true,
+        version: 'v12.0',
+      });
     });
   }
 
   ngOnInit(): void {
+    console.clear();
+    this.configurationService.getPropertySources().subscribe(propertySources => {
+      this.instagramClientId = propertySources[4].properties.instagramClientId.value;
+      this.instagramRedirectUri = propertySources[4].properties.instagramRedirectUri.value;
+    });
     this.activeRoute.queryParams.subscribe(res => {
-      this.twitterAuth_token = res.oauth_token;
-      this.twitterAuth_verifier = res.oauth_verifier;
-      if (this.twitterAuth_verifier) {
+      const twitterAuth_verifier = res.oauth_verifier;
+      if (twitterAuth_verifier) {
         this.postList = [];
         const modalRef = this.modalService.open(SocialTwitterComponent, { size: 'lg', centered: true });
-        modalRef.componentInstance.twitterAuth_verifier = this.twitterAuth_verifier;
+        modalRef.componentInstance.twitterAuth_verifier = twitterAuth_verifier;
+        modalRef.componentInstance.parentComponent = this;
+      }
+
+      const instagramCode = res.oauth_verifier;
+      if (instagramCode) {
+        this.postList = [];
+        const modalRef = this.modalService.open(SocialInstagramComponent, { size: 'lg', centered: true });
+        modalRef.componentInstance.instagramCode = instagramCode;
         modalRef.componentInstance.parentComponent = this;
       }
     });
@@ -161,7 +179,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   instagram() {
-    window.location.href =
-      'https://api.instagram.com/oauth/authorize?client_id=1087161935189461&redirect_uri=https://pickwinr-webapp.herokuapp.com/welcome&scope=user_profile,user_media&response_type=code';
+    window.location.href = `https://api.instagram.com/oauth/authorize?client_id=${this.instagramClientId}&redirect_uri=${this.instagramRedirectUri}&scope=user_profile,user_media&response_type=code`;
   }
 }

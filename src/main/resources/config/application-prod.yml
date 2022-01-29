@@ -12,6 +12,17 @@
 # Full reference is available at:
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
+facebookClientId: 559836958693019
+facebookClientSecret: 399499e964b5cbadc03a6ff7156b521f
+twitterConsumerKey: 4CDSx7RXH8CDsY42DQTH5O5Hg
+twitterConsumerSecret: DAC999kn6JvixNdkCmpGc6AQ27dvD6wpevoDDY0YElQNcVN1GH
+twitterBearerToken: AAAAAAAAAAAAAAAAAAAAAN%2FoVwEAAAAAsiF8lFdSyBWNW%2B2cPH%2F3j%2BWfjbo%3DsDt8TKCUa623RSf02wIBMEaSgN2TtwGz5FRvsDpkW3KWf3abZB
+twitterRedirectUrl: https://pickwinr-webapp.herokuapp.com/welcome
+youtubeDeveloperKey: AIzaSyBXCWGM2su3jqVt7jyM1SMDph4cHRc_y9U
+youtubeApplicationName: picwiner
+instagramClientId: 1087161935189461
+instagramClientSecret: ea04816ebaa1690167fdb3d9c39580c5
+instagramRedirectUri: https://pickwinr-webapp.herokuapp.com/welcome
 
 logging:
   level:
