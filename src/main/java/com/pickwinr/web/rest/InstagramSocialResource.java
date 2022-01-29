@@ -35,35 +35,57 @@ public class InstagramSocialResource {
 
     @GetMapping("instagram/accessToken/{code}")
     private String getAccessToken(@PathVariable String code) throws IOException, URISyntaxException {
-        String userResponse = null;
+        // String userResponse = null;
+        String userResponsess = null;
 
-        HttpClient httpClient = HttpClients
-            .custom()
-            .setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build())
-            .build();
+        // HttpClient httpClient = HttpClients
+        //     .custom()
+        //     .setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build())
+        //     .build();
 
-        URIBuilder uriBuilder = new URIBuilder("https://api.instagram.com/oauth/access_token");
-        List<NameValuePair> queryParameters = new ArrayList<>();
-        queryParameters = new ArrayList<>();
-        queryParameters.add(new BasicNameValuePair("client_id", "1087161935189461"));
-        queryParameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
-        queryParameters.add(new BasicNameValuePair("code", code));
-        queryParameters.add(new BasicNameValuePair("client_secret", "ea04816ebaa1690167fdb3d9c39580c5"));
-        queryParameters.add(new BasicNameValuePair("redirect_uri", "https://pickwinr-webapp.herokuapp.com/welcome"));
+        // URIBuilder uriBuilder = new URIBuilder("https://api.instagram.com/oauth/access_token");
+        // List<NameValuePair> queryParameters = new ArrayList<>();
+        // queryParameters = new ArrayList<>();
+        // queryParameters.add(new BasicNameValuePair("client_id", "1087161935189461"));
+        // queryParameters.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        // queryParameters.add(new BasicNameValuePair("code", code));
+        // queryParameters.add(new BasicNameValuePair("client_secret", "ea04816ebaa1690167fdb3d9c39580c5"));
+        // queryParameters.add(new BasicNameValuePair("redirect_uri", "https://pickwinr-webapp.herokuapp.com/welcome"));
 
-        // uriBuilder.addParameters(queryParameters);
+        // // uriBuilder.addParameters(queryParameters);
 
-        HttpPost httpPost = new HttpPost(uriBuilder.build());
-        httpPost.setHeader("Content-Type", "application/json");
-        httpPost.setEntity(new UrlEncodedFormEntity(queryParameters));
+        // HttpPost httpPost = new HttpPost(uriBuilder.build());
+        // httpPost.setHeader("Content-Type", "application/json");
+        // httpPost.setEntity(new UrlEncodedFormEntity(queryParameters));
 
-        HttpResponse response = httpClient.execute(httpPost);
-        HttpEntity entity = response.getEntity();
-        if (null != entity) {
-            userResponse = EntityUtils.toString(entity, "UTF-8");
+        // HttpResponse response = httpClient.execute(httpPost);
+        // HttpEntity entity = response.getEntity();
+        // if (null != entity) {
+        //     userResponse = EntityUtils.toString(entity, "UTF-8");
+        // }
+        HttpClient httpclients = HttpClients.createDefault();
+        HttpPost httpposts = new HttpPost("https://api.instagram.com/oauth/access_token");
+        
+        // Request parameters and other properties.
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("client_id", "1087161935189461"));
+        params.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        params.add(new BasicNameValuePair("code", code));
+        params.add(new BasicNameValuePair("client_secret", "ea04816ebaa1690167fdb3d9c39580c5"));
+        params.add(new BasicNameValuePair("redirect_uri", "https://pickwinr-webapp.herokuapp.com/welcome"));
+
+        httpposts.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        
+        //Execute and get the response.
+        HttpResponse responsess = httpclients.execute(httpposts);
+        HttpEntity entitysss = responsess.getEntity();
+        if (null != entitysss) {
+            userResponsess = EntityUtils.toString(entitysss, "UTF-8");
         }
-
-        return userResponse;
+        System.out.println("_____________");
+        System.out.println(userResponsess);
+        
+        return userResponsess;
     }
 
 }
