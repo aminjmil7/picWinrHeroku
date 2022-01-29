@@ -20,16 +20,14 @@ export class SocialInstagramComponent implements OnInit {
       this.instagramClientId = propertySources[6].properties.instagramClientId.value;
       this.instagramClientSecret = propertySources[6].properties.instagramClientSecret.value;
       this.instagramRedirectUri = propertySources[6].properties.instagramRedirectUri.value;
-      console.log("SocialInstagramComponent");
+      console.log('SocialInstagramComponent');
       console.log(this.instagramClientId, this.instagramClientSecret, this.instagramRedirectUri, this.instagramCode);
       console.log('get code');
       if (this.instagramCode) {
-        this.instagramService
-          .getAccessToken(this.instagramClientId, this.instagramClientSecret, this.instagramRedirectUri, this.instagramCode)
-          .subscribe(res => {
-            console.log('insta result');
-            console.log(res);
-          });
+        this.instagramService.getAccessToken(this.instagramCode).subscribe(res => {
+          console.log('insta result');
+          console.log(res);
+        });
       }
     });
   }
