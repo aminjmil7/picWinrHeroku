@@ -17,9 +17,10 @@ export class SocialInstagramComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.instagramCode);
     this.configurationService.getPropertySources().subscribe(propertySources => {
-      this.instagramClientId = propertySources[4].properties.instagramClientId.value;
-      this.instagramClientSecret = propertySources[4].properties.instagramClientSecret.value;
-      this.instagramRedirectUri = propertySources[4].properties.instagramRedirectUri.value;
+      this.instagramClientId = propertySources[6].properties.instagramClientId.value;
+      this.instagramClientSecret = propertySources[6].properties.instagramClientSecret.value;
+      this.instagramRedirectUri = propertySources[6].properties.instagramRedirectUri.value;
+      console.log("SocialInstagramComponent");
       console.log(this.instagramClientId, this.instagramClientSecret, this.instagramRedirectUri, this.instagramCode);
       console.log('get code');
       if (this.instagramCode) {
