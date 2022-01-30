@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigurationService } from 'app/admin/configuration/configuration.service';
 import { InstagramService } from './social-instagram.service';
+import { faHeart, faComments, faClock } from '@fortawesome/free-regular-svg-icons';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-social-instagram',
@@ -12,7 +15,20 @@ export class SocialInstagramComponent implements OnInit {
   instagramClientId: string | undefined;
   instagramClientSecret: string | undefined;
   instagramRedirectUri: string | undefined;
-  constructor(private instagramService: InstagramService, private configurationService: ConfigurationService) {}
+
+  fa_Heart = faHeart;
+  fa_Comments = faComments;
+  fa_Clock = faClock;
+  fa_Link = faLink;
+
+  postList: any[] = [];
+  parentComponent: any;
+
+  constructor(
+    private instagramService: InstagramService,
+    private configurationService: ConfigurationService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     console.log(this.instagramCode);
@@ -36,11 +52,19 @@ export class SocialInstagramComponent implements OnInit {
             result.body.data.forEach((element: any) => {
               this.instagramService.getMediaDetails(element.id, res.body.access_token).subscribe(data => {
                 console.log(data);
+                this.postList.push({ ...data.body, isSelected: false });
               });
             });
           });
         });
       }
     });
+  }
+  selectPost(event: any, post: any) {
+    post.isSelected = true;
+  }
+  postSelected() {
+    this.parentComponent.selectedPost = this.postList.find(elem => elem.isSelected == true);
+    this.modalService.dismissAll();
   }
 }
