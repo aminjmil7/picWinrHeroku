@@ -26,7 +26,14 @@ export class SocialInstagramComponent implements OnInit {
       if (this.instagramCode) {
         this.instagramService.getAccessToken(this.instagramCode).subscribe(res => {
           console.log('insta result');
-          console.log(res);
+          console.log(res.body.access_token);
+          res.body.user_id
+          this.instagramService.getMedia(res.body.user_id,res.body.access_token).subscribe(res=>{
+            console.log("res1111111",res);
+          })
+          this.instagramService.getUserMedia(res.body.user_id,res.body.access_token).subscribe(result=>{
+            console.log("result222222",result);
+          })
         });
       }
     });
