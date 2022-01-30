@@ -15,10 +15,13 @@ export class InstagramService {
   getAccessToken(code: string): Observable<EntityResponseType> {
     return this.http.get<any>(`${this.resourceUrl}/accessToken/${code}`, { observe: 'response' });
   }
-  getMedia(userId: string, accessToken: string): Observable<EntityResponseType> {
-    return this.http.get<any>(`${this.resourceUrl}/getMedia/${userId}/${accessToken}`, { observe: 'response' });
+  getUser(userId: string, accessToken: string): Observable<EntityResponseType> {
+    return this.http.get<any>(`${this.resourceUrl}/getUser/${userId}/${accessToken}`, { observe: 'response' });
   }
   getUserMedia(userId: string, accessToken: string): Observable<EntityResponseType> {
     return this.http.get<any>(`${this.resourceUrl}/getUserMedia/${userId}/${accessToken}`, { observe: 'response' });
+  }
+  getMediaDetails(mediaId: string, accessToken: string): Observable<EntityResponseType> {
+    return this.http.get<any>(`${this.resourceUrl}/getMediaDetails/${mediaId}/${accessToken}`, { observe: 'response' });
   }
 }

@@ -61,8 +61,8 @@ public class InstagramSocialResource {
         return userResponse;
     }
 
-    @GetMapping("instagram/getUserMedia/{userId}/{accessToken}")
-    private String getUserMedia(@PathVariable String userId, @PathVariable String accessToken) throws IOException, URISyntaxException {
+    @GetMapping("instagram/getUser/{userId}/{accessToken}")
+    private String getUser(@PathVariable String userId, @PathVariable String accessToken) throws IOException, URISyntaxException {
         String tweetResponse = null;
 
         HttpClient httpClient = HttpClients
@@ -89,8 +89,8 @@ public class InstagramSocialResource {
         return tweetResponse;
     }
 
-    @GetMapping("instagram/getMedia/{userId}/{accessToken}")
-    private String getMedia(@PathVariable String userId, @PathVariable String accessToken) throws IOException, URISyntaxException {
+    @GetMapping("instagram/getUserMedia/{userId}/{accessToken}")
+    private String getUserMedia(@PathVariable String userId, @PathVariable String accessToken) throws IOException, URISyntaxException {
         String userResponse = null;
 
         HttpClient httpclient = HttpClients.createDefault();
@@ -99,6 +99,34 @@ public class InstagramSocialResource {
         // Request parameters and other properties.
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
         params.add(new BasicNameValuePair("fields", "id,username"));
+        params.add(new BasicNameValuePair("access_token", accessToken));
+        uriBuilder.addParameters(params);
+
+        HttpGet httpGet = new HttpGet(uriBuilder.build());
+        httpGet.setHeader("Content-Type", "application/json");
+
+        //Execute and get the response.
+        HttpResponse response = httpclient.execute(httpGet);
+        HttpEntity entity = response.getEntity();
+        if (null != entity) {
+            userResponse = EntityUtils.toString(entity, "UTF-8");
+        }
+        System.out.println("_____________");
+        System.out.println(userResponse);
+
+        return userResponse;
+    }
+
+    @GetMapping("instagram/getMediaDetails/{mediaId}/{accessToken}")
+    private String getMediaDetails(@PathVariable String mediaId, @PathVariable String accessToken) throws IOException, URISyntaxException {
+        String userResponse = null;
+
+        HttpClient httpclient = HttpClients.createDefault();
+        URIBuilder uriBuilder = new URIBuilder(String.format("https://graph.instagram.com/v11.0/" + mediaId));
+
+        // Request parameters and other properties.
+        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+        params.add(new BasicNameValuePair("fields", "id,username,media_url,timestamp,media_type,caption,permalink,thumbnail_url"));
         params.add(new BasicNameValuePair("access_token", accessToken));
         uriBuilder.addParameters(params);
 
