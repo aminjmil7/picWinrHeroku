@@ -70,7 +70,7 @@ public class InstagramSocialResource {
             .setDefaultRequestConfig(RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD).build())
             .build();
 
-        URIBuilder uriBuilder = new URIBuilder(String.format("https://graph.instagram.com/v11.0/" + userId));
+        URIBuilder uriBuilder = new URIBuilder(String.format("https://graph.instagram.com/v11.0/me"));
         ArrayList<NameValuePair> queryParameters;
         queryParameters = new ArrayList<>();
         queryParameters.add(new BasicNameValuePair("fields", "id,username"));
@@ -94,7 +94,7 @@ public class InstagramSocialResource {
         String userResponse = null;
 
         HttpClient httpclient = HttpClients.createDefault();
-        URIBuilder uriBuilder = new URIBuilder(String.format("https://graph.instagram.com/v11.0/" + userId));
+        URIBuilder uriBuilder = new URIBuilder(String.format("https://graph.instagram.com/v11.0/me/media"));
 
         // Request parameters and other properties.
         List<NameValuePair> params = new ArrayList<NameValuePair>(2);
