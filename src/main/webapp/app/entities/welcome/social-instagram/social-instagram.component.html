@@ -4,7 +4,7 @@
 <div style="overflow-y: auto; max-height: 30rem">
     <div class="post" *ngFor="let post of postList" (click)="inputRadio.click()">
         <div class="col-md-4">
-            <ng-container *ngIf="post.picture; else elseTemplate">
+            <ng-container *ngIf="post.media_url; else elseTemplate">
                 <img [src]="post.media_url" class="w-100 h-100" alt="Post Image" />
             </ng-container>
             <ng-template #elseTemplate>
