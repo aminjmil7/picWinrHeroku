@@ -21,8 +21,8 @@
         <div>
           <label class="form-label font-weight-normal" for="nbWinners"> Number of winners</label><span
             style="color: red">*</span>
-          <input class="form-control w-25" type="number" placeholder="1-9" required [(ngModel)]="nbWinners"
-            [max]="cycleService.currentCycle.post?.comments?.length || 0"
+          <input class="form-control w-25" type="number" min="0" placeholder="1-9" required [(ngModel)]="nbWinners"
+            [max]="maxWinners"
             [disabled]="!!cycleService.currentCycle.opcode" id="nbWinners" name="nbWinners" />
         </div>
         <div class="d-flex justify-content-center mt-5" style="gap: 1em">

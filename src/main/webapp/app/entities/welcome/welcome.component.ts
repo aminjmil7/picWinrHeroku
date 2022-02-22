@@ -187,6 +187,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   instagram() {
+    Math.random()
     window.location.href = `https://api.instagram.com/oauth/authorize?client_id=${this.instagramClientId}&redirect_uri=${this.instagramRedirectUri}&scope=user_profile,user_media&response_type=code`;
   }
 }

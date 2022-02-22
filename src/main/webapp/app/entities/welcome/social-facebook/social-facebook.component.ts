@@ -89,6 +89,7 @@ export class SocialFacebookComponent implements OnInit {
   }
 
   selectPost(event: any, post: any) {
+    this.postList.map(element=> element.isSelected = false);
     post.isSelected = true;
   }
 

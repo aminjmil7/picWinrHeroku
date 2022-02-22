@@ -54,6 +54,7 @@ export class SocialTwitterComponent implements OnInit {
     return tweetsData.find(tweet => tweet.createdAt == created_at);
   }
   selectPost(event: any, post: any) {
+    this.postList.map(element=> element.isSelected = false);
     post.isSelected = true;
   }
   postSelected() {

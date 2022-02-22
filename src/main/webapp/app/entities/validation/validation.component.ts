@@ -38,10 +38,12 @@ export class validationComponent implements OnInit {
   ];
   updated = true;
   codeError = '';
+  maxWinners = 0;
   constructor(public opcodeService: OpcodeService, protected router: Router, public cycleService: CycleService) {}
 
   ngOnInit(): void {
     if (this.cycleService.currentCycle.opcode) this.OPCode = this.cycleService.currentCycle.opcode.opirationCode!;
+    this.maxWinners = this.getMaxPossibleWinners();
   }
 
   getWinners() {
@@ -86,6 +88,7 @@ export class validationComponent implements OnInit {
 
   selectWinners() {
     const commentList = this.cycleService.currentCycle.post?.comments;
+    this.maxWinners = this.getMaxPossibleWinners();
     if (commentList && commentList?.length > 0) {
       let winners = '';
       let index = 0;
@@ -105,6 +108,19 @@ export class validationComponent implements OnInit {
       this.cycleService.currentCycle.winners = winners;
       this.cycleService.update(this.cycleService.currentCycle).subscribe();
     }
+  }
+
+  getMaxPossibleWinners(): number {
+    const CommentList = this.cycleService.currentCycle.post?.comments;
+    const usersList: string[] = [];
+    if (CommentList) {
+      CommentList.forEach(comment => {
+        if (comment.ownerName && !usersList.includes(comment.ownerName)) {
+          usersList.push(comment.ownerName);
+        }
+      });
+    }
+    return usersList.length;
   }
 
   getRandomInt(max: number) {
