@@ -176,7 +176,7 @@ jhipster:
       object-src 'self';
       style-src 'self' 'unsafe-inline' https://api.instagram.com https://www.facebook.com https://connect.facebook.net https://fonts.googleapis.com;
       font-src 'self' data: https://fonts.gstatic.com;
-      img-src 'self' data: *.cdninstagram.com maps.gstatic.com *.googleapis.com *.ggpht.com *.*.*
+      img-src 'self' data: https://platform-lookaside.* *.cdninstagram.com maps.gstatic.com *.googleapis.com *.ggpht.com *.*.*
       "
 # ===================================================================
 # Application specific properties
